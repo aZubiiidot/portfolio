@@ -912,7 +912,7 @@ body.nav-active .nav__list-item:nth-child(10) {
 
 @keyframes slide-clip {
   0% {
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(0 0 100% 0);
   }
 
   100% {
@@ -926,7 +926,7 @@ body.nav-active .nav__list-item:nth-child(10) {
   }
 
   100% {
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(0 0 100% 0);
   }
 }
 
