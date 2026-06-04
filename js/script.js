@@ -131,15 +131,15 @@
   }
 
   $(document).ready(function () {
-    // overlayMenu();
+    // load shared nav partial
+    $('#nav-placeholder').load('nav.html');
     init_slider();
     initTextFx();
     initChocolat();
     initIsotope();
 
-    // mobile menu
-    $('.menu-btn').click(function(e){
-      // e.preventDefault();
+    // mobile menu (delegated so it works for dynamically loaded nav)
+    $(document).on('click', '.menu-btn', function(e){
       $('body').toggleClass('nav-active');
     });
 
