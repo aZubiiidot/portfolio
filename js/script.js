@@ -131,9 +131,9 @@
   }
 
   $(document).ready(function () {
-    // load shared nav and sidebar partials
-    $('#nav-placeholder').load('nav.html');
-    $('#sidebar-placeholder').load('sidebar.html');
+    // load shared nav and sidebar partials via fetch for consistency with head.html
+    fetch('nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; }).catch(function(err){ console.error('nav load failed', err); });
+    fetch('sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; }).catch(function(err){ console.error('sidebar load failed', err); });
     init_slider();
     initTextFx();
     initChocolat();
