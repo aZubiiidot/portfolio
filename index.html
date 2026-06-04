@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Jákli-Pallai István - 3D Generalist / Tech Artist</title>
-    <!-- Common head elements will be loaded from head.html -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chris Miller - UI/UX Designer / Art Director</title>
+
+    <!-- Third Party Plugins -->
+    <link rel="stylesheet" type="text/css" href="css/vendor.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto:wght@400;700;900&family=Six+Caps&display=swap" rel="stylesheet">
+    <!-- custom style -->
+    <link rel="stylesheet" href="style.css">
+
   </head>
   <body data-bs-theme="dark">
     
-    <div id="navbar-container"></div>
+    <div class="nav nav-overlay">
+      <div class="nav__content">
+        <ul class="nav__list">
+          <li class="nav__list-item active-nav"><a href="index.html" class="hover-target">Home</a></li>
+          <li class="nav__list-item"><a href="styles.html" class="hover-target">Styles</a></li>
+          <li class="nav__list-item"><a href="blog.html" class="hover-target">Blog</a></li>
+          <li class="nav__list-item"><a href="single-post.html" class="hover-target">Single Post</a></li>
+          <li class="nav__list-item"><a href="portfolio-masonry.html" class="hover-target">Portfolio</a></li>
+          <li class="nav__list-item"><a href="single-portfolio.html" class="hover-target">Single Portfolio</a></li>
+          <li class="nav__list-item"><a href="contact.html" class="hover-target">Contact me</a></li>
+        </ul>
+      </div>
+    </div>
 
     <nav id="navbar" class="position-absolute">
 			<input id="menu-toggle" type="checkbox" />
@@ -18,7 +43,31 @@
     <div class="container-fluid p-0">
       <div class="row g-0">
         <!-- Sidebar -->
-        <div id="sidebar-container" class="col-lg-3 position-fixed z-1 h-100" data-aos="slide-right" data-aos-delay="200"></div>
+        <div class="col-lg-3 position-fixed z-1 h-100" data-aos="slide-right" data-aos-delay="200">
+          <div class="sidebar p-4 p-lg-5 vh-100 d-flex flex-column position-relative">
+            <a href="index.html" class="logo mb-0 text-decoration-none">Chris.</a>
+            <p class="bio mt-4 d-none d-lg-block" style="max-width: 200px;">
+              OVER THE PAST DECADE I'VE WORKED WITH GLOBAL WEB TEMPLATE PROVIDERS, WEB AGENCIES AND ENTREPRENEURS.
+              DESIGNED WORDPRESS AND E-COMMERCE TEMPLATES, CLIENT FACING WEB SITES, ADMIN INTERFACES, LOGO AND BRAND
+              IDENTITY.
+            </p>
+            <p style="max-width: 200px;">Free HTML Template by <a href="https://templatesjungle.com/" target="_blank" class="text-decoration-none">TemplatesJungle</a></p>
+            
+            <div class="social-icons mt-auto mb-4 d-none d-lg-flex flex-column">
+              <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-icon" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+              <a href="#" class="social-icon" aria-label="Skype"><i class="fab fa-skype"></i></a>
+            </div>
+            
+            <div class="personal-info d-none d-lg-flex">
+              <p class="job-title mb-2">UI/UX DESIGNER / ART DIRECTOR</p>
+              <p class="location">MYKOLAIV, UKRAINE</p>
+            </div>
+          </div>
+        </div>
 
         <div class="col-lg-9 offset-lg-3">
           <div class="row">
@@ -33,29 +82,29 @@
                     <div class="swiper-slide">
                       <div class="banner-content d-flex flex-column">
                         <span class="introduction mb-3 d-block">INTRODUCTION</span>
-                        <h2 class="name mb-4 txt-fx slide-up">JÁKLI-PALLAI ISTVÁN</h2>
+                        <h2 class="name mb-4 txt-fx slide-up">CHRIS MILLER</h2>
                         <p class="description mb-4">
-                          Mindenhez is értek
+                          Labore accusam in modo compungi, iacentem substantiales um se sed esse haec.
                         </p>
                         <a href="#" class="cta-link d-inline-block mb-5">Let's Talk.</a>
                       </div>
                     </div>
                     <div class="swiper-slide">
                       <div class="banner-content d-flex flex-column">
-                        <span class="introduction mb-3 d-block">3D Generalist / Tech Artist</span>
-                        <h2 class="name mb-4 txt-fx slide-up">Tool Creation</h2>
+                        <span class="introduction mb-3 d-block">Web Designer / Developer</span>
+                        <h2 class="name mb-4 txt-fx slide-up">UX/UI OPTIMIZATION</h2>
                         <p class="description mb-4">
-                          toolok toolok toolok
+                          Labore accusam in modo compungi, iacentem substantiales um se sed esse haec.
                         </p>
                         <a href="#" class="cta-link d-inline-block mb-5">View all Works.</a>
                       </div>
                     </div>
                     <div class="swiper-slide">
                       <div class="banner-content d-flex flex-column">
-                        <span class="introduction mb-3 d-block">Bizony</span>
-                        <h2 class="name mb-4 txt-fx slide-up">MINDENHEZ</h2>
+                        <span class="introduction mb-3 d-block">Front-End Development</span>
+                        <h2 class="name mb-4 txt-fx slide-up">FULL STACK SOLUTIONS</h2>
                         <p class="description mb-4">
-                          Komolyan mondom!
+                          Labore accusam in modo compungi, iacentem substantiales um se sed esse haec.
                         </p>
                         <a href="#" class="cta-link d-inline-block mb-5">Let's Talk.</a>
                       </div>
@@ -65,7 +114,7 @@
                         <span class="introduction mb-3 d-block">Smooth Communication</span>
                         <h2 class="name mb-4 txt-fx slide-up">COLLABORATIVE & CLEAR</h2>
                         <p class="description mb-4">
-                          Trú.
+                          Labore accusam in modo compungi, iacentem substantiales um se sed esse haec.
                         </p>
                         <a href="#" class="cta-link d-inline-block mb-5">About me.</a>
                       </div>
@@ -123,19 +172,19 @@
               <div class="p-4 p-lg-5 vh-100">
                 <div class="skill" data-aos="fade-up" data-aos-delay="200">
                   <span class="skill-number d-block">01</span>
-                  <h3>3D Generalist</h3>
+                  <h3>UI/UX Design</h3>
                   <p>At in proin consequat ut cursus venenatis sapien.</p>
                 </div>
                 
                 <div class="skill" data-aos="fade-up" data-aos-delay="400">
                   <span class="skill-number d-block">02</span>
-                  <h3>Tech Artist</h3>
+                  <h3>Illustration</h3>
                   <p>At in proin consequat ut cursus venenatis sapien.</p>
                 </div>
                 
                 <div class="skill" data-aos="fade-up" data-aos-delay="600">
                   <span class="skill-number d-block">03</span>
-                  <h3>Fluent Python</h3>
+                  <h3>Graphic Design</h3>
                   <p>At in proin consequat ut cursus venenatis sapien.</p>
                 </div>
                 
@@ -482,7 +531,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/load-navbar.js"></script>
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/script.js"></script>
