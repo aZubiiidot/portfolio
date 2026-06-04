@@ -352,81 +352,52 @@ body {
   object-fit: cover;
 }
 
+.swiper-slide {
+  width: 1200px;      /* Fix szélesség nagy képernyőn */
+  margin: 0 auto;     /* Középre zárja a dobozt a monitoron */
+  box-sizing: border-box;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1199.98px) {
-  .name {
-    font-size: 120px;
+  .swiper-slide {
+    width: 960px;     /* Amint beugrik ez a nézet, fixen ekkora lesz, nem skálázódik tovább lefelé */
   }
-
-  .description {
-    font-size: 18px;
-  }
-
-  .section-nav ul {
-    gap: 30px;
-  }
+  .name { font-size: 120px; }
+  .description { font-size: 18px; }
+  .section-nav ul { gap: 30px; }
 }
 
 @media (max-width: 991.98px) {
-  .name {
-    font-size: 90px;
+  .swiper-slide {
+    width: 720px;     /* Újabb lépcsőfok: fix szélesség tablet mérethez */
   }
-
-  .sidebar-divider {
-    width: 100px;
-    height: 1px;
-    margin: 20px auto;
-  }
-
-  .job-title,
-  .location {
-    text-align: center;
-  }
-
-  .cta-button {
-    padding: 40px 30px;
-  }
+  .name { font-size: 90px; }
+  .sidebar-divider { width: 100px; height: 1px; margin: 20px auto; }
+  .job-title, .location { text-align: center; }
+  .cta-button { padding: 40px 30px; }
 }
 
 @media (max-width: 767.98px) {
-  .name {
-    font-size: 120px;
+  .swiper-slide {
+    width: 540px;     /* Újabb lépcsőfok: nagyobb mobilok */
   }
-
-  .description {
-    font-size: 16px;
-  }
-
-  .section-nav ul {
-    gap: 20px;
-  }
-
-  .cta-link {
-    font-size: 20px;
-  }
-
-  .cta-button {
-    width: 100%;
-    padding: 30px 20px;
-  }
+  .name { font-size: 120px; }
+  .description { font-size: 16px; }
+  .section-nav ul { gap: 20px; }
+  .cta-link { font-size: 20px; }
+  .cta-button { width: 100%; padding: 30px 20px; }
 }
 
 @media (max-width: 575.98px) {
-  .name {
-    font-size: 120px;
+  .swiper-slide {
+    width: 100%;      /* A legkisebb mobiloknál már muszáj kitöltenie a kijelzőt */
+    padding: 0 15px;  /* Hogy ne tapadjon ki a telefon szélére a szöveg */
   }
-
-  .section-nav ul {
-    gap: 15px;
-  }
-
-  .section-nav li {
-    font-size: 12px;
-  }
-
-  .section-nav span {
-    font-size: 14px;
-  }
+  .name { font-size: 120px; }
+  .section-nav ul { gap: 15px; }
+  .section-nav li { font-size: 12px; }
+  .section-nav span { font-size: 14px; }
 }
 
 
