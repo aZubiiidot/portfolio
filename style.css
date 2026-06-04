@@ -353,15 +353,15 @@ body {
 }
 
 .swiper-slide {
-  width: 1200px;      /* Fix szélesség nagy képernyőn */
-  margin: 0 auto;     /* Középre zárja a dobozt a monitoron */
-  box-sizing: border-box;
+  width: 100%;          /* Kisebb képernyőkön kitölti a teret... */
+  max-width: 1500px;    /* ...de 1500px felett teljesen megáll, nem nő tovább! */
+  margin: 0 auto;       /* Ha a monitor nagyobb mint 1500px, gyönyörűen középre zárja az oldalt */
 }
 
 /* Responsive adjustments */
 @media (max-width: 1199.98px) {
   .swiper-slide {
-    width: 960px;     /* Amint beugrik ez a nézet, fixen ekkora lesz, nem skálázódik tovább lefelé */
+    width: 960px;     
   }
   .name { font-size: 120px; }
   .description { font-size: 18px; }
