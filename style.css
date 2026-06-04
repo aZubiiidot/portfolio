@@ -39,6 +39,7 @@
   --bs-link-hover-color-rgb: 169, 128, 115;
 
   --bs-gutter-x: 2.5rem;
+  --max-width: 1500px;
 }
 
 
@@ -186,6 +187,8 @@
 }
 
 body {
+  margin: 0;
+  padding: 0;
   font-family: 'Roboto', sans-serif;
   color: var(--text-color);
   background-color: var(--bg-dark);
