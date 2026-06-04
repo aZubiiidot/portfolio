@@ -131,8 +131,9 @@
   }
 
   $(document).ready(function () {
-    // load shared nav partial
+    // load shared nav and sidebar partials
     $('#nav-placeholder').load('nav.html');
+    $('#sidebar-placeholder').load('sidebar.html');
     init_slider();
     initTextFx();
     initChocolat();
