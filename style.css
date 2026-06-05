@@ -210,6 +210,30 @@ body {
   color: var(--text-color);
 }
 
+.contact-name {
+  font-family: 'Six Caps', sans-serif;
+  font-weight: 400;
+  font-size: 176px;
+  font-size: 206px;
+  line-height: 0.9;
+  color: var(--text-color);
+  text-align: center; /* Ha a Bootstrap osztály nem lenne elég, CSS-ből is középre zárjuk */
+}
+
+.contact-link {
+  color: inherit;
+  text-decoration: underline !important; /* Kényszerített aláhúzás */
+  position: relative;                    /* Kiemeli a rétegből, hogy kattintható legyen */
+  z-index: 10;                           /* Biztosítja, hogy semmi ne takarja le */
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #8b0000;            /* Halvány sötétpiros hover szín */
+  cursor: pointer;
+  text-decoration: underline !important;
+}
+
 .introduction {
   font-weight: 700;
   font-size: 14px;
