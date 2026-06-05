@@ -1277,8 +1277,8 @@ body.nav-active .nav__list-item:nth-child(10) {
 .image-slider {
   position: absolute;
   top: 0;
-  left: 50%;                   /* 👈 Kényszerítjük, hogy a bal szélen maradjon, ne ugorjon középre */
-  transform: translateX(-50%); /* 👈 Ez a trükk: a bal széltől indul, de a közepére igazítja, így mindig a bal oldalon marad, és nem ugrik középre */
+  left: 50px;                   /* 👈 Kényszerítjük, hogy a bal szélen maradjon, ne ugorjon középre */
+  transform: translateX(50px); /* 👈 Ez a trükk: a bal széltől indul, de a közepére igazítja, így mindig a bal oldalon marad, és nem ugrik középre */
   width: 100%;
   max-width: 850px;          /* PC-n eddig nyúlhat ki */
   height: 100vh;     
