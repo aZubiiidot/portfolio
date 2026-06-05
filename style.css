@@ -253,6 +253,7 @@ body {
 .fillingText {
   line-height: 1.0;
   color: var(--text-muted);
+  width: 100%;
   max-width: 470px;
 }
 
