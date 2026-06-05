@@ -320,6 +320,8 @@ li.fillingText {
   letter-spacing: 1.4px;
   text-transform: uppercase;
   cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
 }
 
 .section-nav span {
