@@ -248,6 +248,7 @@ body {
   line-height: 1.8;
   color: var(--text-muted);
   max-width: 490px;
+  text-align: justify;
 }
 
 .sideText {
