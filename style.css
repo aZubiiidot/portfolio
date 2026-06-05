@@ -854,6 +854,14 @@ body.nav-active .nav__list-item:nth-child(10) {
   left: -5px;
 }
 
+.skill-chart li .chart-percentage.sixty-percent {
+  width: 60%;
+}
+
+.skill-chart li .chart-percentage.sixty-five-percent {
+  width: 65%;
+}
+
 .skill-chart li .chart-percentage.seventy-percent {
   width: 70%;
 }
@@ -864,6 +872,10 @@ body.nav-active .nav__list-item:nth-child(10) {
 
 .skill-chart li .chart-percentage.eighty-percent {
   width: 80%;
+}
+
+.skill-chart li .chart-percentage.eighty-five-percent {
+  width: 85%;
 }
 
 .skill-chart li .chart-percentage.ninety-percent {
