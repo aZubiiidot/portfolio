@@ -1,8 +1,4 @@
-const currentPath = window.location.pathname;
-const depth = (currentPath.match(/\//g) || []).length - 2; 
-const prefix = depth > 0 ? "../".repeat(depth) : "";
-
-
+const prefix = window.subPagePrefix || "";
 
 (function ($) {
 
