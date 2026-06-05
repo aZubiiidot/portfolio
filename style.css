@@ -185,12 +185,22 @@
   --bg-dark: #111111;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   color: var(--text-color);
   background-color: var(--bg-dark);
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+}
+
+.row {
+  --bs-gutter-x: 0;
 }
 
 .logo {
