@@ -467,7 +467,7 @@ li.fillingText {
 
 @media (max-width: 767.98px) {
   .name {
-    font-size: 120px;
+    font-size: 60px;
     -webkit-text-size-adjust: none !important;
     text-size-adjust: none !important;
   }
@@ -505,7 +505,7 @@ li.fillingText {
 
 @media (max-width: 575.98px) {
   .name {
-    font-size: 120px;
+    font-size: 15px;
   }
 
   .section-nav ul {
