@@ -1,3 +1,9 @@
+const currentPath = window.location.pathname;
+const depth = (currentPath.match(/\//g) || []).length - 2; 
+const prefix = depth > 0 ? "../".repeat(depth) : "";
+
+
+
 (function ($) {
 
   "use strict";
@@ -141,8 +147,8 @@
     // load shared nav and sidebar partials via fetch for consistency with head.html
     //fetch('nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; }).catch(function(err){ console.error('nav load failed', err); });
     //fetch('sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; }).catch(function(err){ console.error('sidebar load failed', err); });
-    var navFetch = fetch('nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; });
-    var sidebarFetch = fetch('sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; });
+    var navFetch = fetch(prefix + 'nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; });
+    var sidebarFetch = fetch(prefix + 'sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; });
     
     Promise.all([navFetch, sidebarFetch]).then(function() {
       init_slider();
