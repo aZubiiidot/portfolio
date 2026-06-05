@@ -250,11 +250,18 @@ body {
   max-width: 490px;
 }
 
-.fillingText {
-  line-height: 1.0;
-  color: var(--text-muted);
+ul.fillingText {
   width: 100%;
-  max-width: 470px;
+  max-width: 470px;         /* Itt fixen meg fog állni a széthúzás */
+  padding-left: 1.2rem;     /* Ezzel adjuk meg a belső behúzást a pöttyöknek */
+  margin-bottom: 0;
+}
+
+/* A listaelemek (li) formázása */
+li.fillingText {
+  line-height: 1.3;         /* 1.0-ról megemelve, hogy a többsoros szöveg olvasható legyen */
+  color: var(--text-muted);
+  margin-bottom: 10px;      /* Kis távolság a listapontok között */
 }
 
 .cta-link {
