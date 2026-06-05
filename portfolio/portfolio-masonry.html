@@ -10,8 +10,8 @@
     fetch('../head.html')
       .then(r => r.text())
       .then(html => {
-        // Minden 'href="css/' vagy 'href="js/' kezdetű utat kiegészítünk a megfelelő prefixszel
-        let fixedHtml = html.replace(/href="(css|js|images|fonts)\//g, 'href="../$1/');
+        // Ez a regex már figyeli a href= és az src= kezdeteket is!
+        let fixedHtml = html.replace(/(href|src)="(css|js|images|fonts)\//g, '$1="../$2/');
         document.head.insertAdjacentHTML('beforeend', fixedHtml);
       });
   </script>
