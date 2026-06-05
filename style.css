@@ -1277,10 +1277,10 @@ body.nav-active .nav__list-item:nth-child(10) {
 .image-slider {
   position: absolute;
   top: 0;
-  left: -20%;                   /* 👈 Kényszerítjük, hogy a bal szélen maradjon, ne ugorjon középre */
-  width: 100%;
+  left: -6%;                   /* 👈 Kényszerítjük, hogy a bal szélen maradjon, ne ugorjon középre */
+  width: 110%;
   max-width: 1100px;          /* PC-n eddig nyúlhat ki */
-  height: auto;     
+  height: 100vh;                   /* Mindig kitölti a teljes magasságot */
   /*aspect-ratio: 9 / 16;*/        /* Megtartja a teljes magasságot */
   z-index: 0;
   overflow: hidden;          /* Biztosítja, hogy ami kilóg, az ne látsszon */
