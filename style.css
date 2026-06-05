@@ -303,16 +303,17 @@ li.fillingText {
 
 .section-nav {
   position: relative;
-  z-index: 10000;    
+  z-index: 10000; 
+  width: 100% !important;
+  overflow: hidden;   
 }
 
 .section-nav ul {
   list-style: none;
   padding: 0;
+  margin: 0;
   display: flex !important;
   flex-wrap: nowrap !important;
-  width: max-content !important;
-  gap: 40px;
 }
 
 .section-nav li {
@@ -321,7 +322,7 @@ li.fillingText {
   letter-spacing: 1.4px;
   text-transform: uppercase;
   cursor: pointer;
-  width: auto !important;
+  width: max-content !important; 
   flex-shrink: 0 !important;
 }
 
@@ -475,6 +476,14 @@ li.fillingText {
 
   .section-nav ul {
     gap: 20px;
+  }
+
+  .section-nav li {
+    font-size: 12px;
+  }
+
+  .section-nav span {
+    font-size: 14px;
   }
 
   .cta-link {

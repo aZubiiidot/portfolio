@@ -6,8 +6,15 @@
     var nav_swiper = new Swiper(".swiper.banner-nav-slider", {
       slidesPerView: "auto",
       spaceBetween: 10,
+      observer: true,
+      observeParents: true,
+      watchSlidesProgress: true,
+      breakpoints: {
+        300: { spaceBetween: 15 },
+        768: { spaceBetween: 30 },
+        1200: { spaceBetween: 40 }
+      }
     });
-    
     // banner swiper slide
     var banner_swiper = new Swiper(".swiper.banner-slider", {
       slidesPerView: 1,
@@ -132,9 +139,18 @@
 
   $(document).ready(function () {
     // load shared nav and sidebar partials via fetch for consistency with head.html
-    fetch('nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; }).catch(function(err){ console.error('nav load failed', err); });
-    fetch('sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; }).catch(function(err){ console.error('sidebar load failed', err); });
-    init_slider();
+    //fetch('nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; }).catch(function(err){ console.error('nav load failed', err); });
+    //fetch('sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; }).catch(function(err){ console.error('sidebar load failed', err); });
+    var navFetch = fetch('nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; });
+    var sidebarFetch = fetch('sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; });
+    
+    Promise.all([navFetch, sidebarFetch]).then(function() {
+      init_slider();
+    }).catch(function(err){ 
+      console.error('Fetch load failed, fallback slider init', err);
+      init_slider();
+    });
+
     initTextFx();
     initChocolat();
     initIsotope();
@@ -148,7 +164,6 @@
       duration: 1200,
       // once: true,
     })
-
   });
 
   // preloader
