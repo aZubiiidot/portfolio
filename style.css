@@ -1280,7 +1280,8 @@ body.nav-active .nav__list-item:nth-child(10) {
   left: 0;                   /* 👈 Kényszerítjük, hogy a bal szélen maradjon, ne ugorjon középre */
   width: 100%;
   max-width: 850px;          /* PC-n eddig nyúlhat ki */
-  height: 100vh;             /* Megtartja a teljes magasságot */
+  height: auto;     
+  aspect-ratio: 16 / 9;        /* Megtartja a teljes magasságot */
   z-index: 0;
   overflow: hidden;          /* Biztosítja, hogy ami kilóg, az ne látsszon */
 }
