@@ -250,6 +250,12 @@ body {
   max-width: 490px;
 }
 
+p.fillingText {
+  width: 100%;
+  max-width: 730px;         /* Itt fixen meg fog állni a széthúzás */
+  margin-bottom: 0;
+}
+
 ul.fillingText {
   width: 100%;
   max-width: 730px;         /* Itt fixen meg fog állni a széthúzás */
