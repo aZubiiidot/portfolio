@@ -252,7 +252,7 @@ body {
 
 ul.fillingText {
   width: 100%;
-  max-width: 470px;         /* Itt fixen meg fog állni a széthúzás */
+  max-width: 730px;         /* Itt fixen meg fog állni a széthúzás */
   padding-left: 1.2rem;     /* Ezzel adjuk meg a belső behúzást a pöttyöknek */
   margin-bottom: 0;
 }
@@ -261,7 +261,8 @@ ul.fillingText {
 li.fillingText {
   line-height: 1.3;         /* 1.0-ról megemelve, hogy a többsoros szöveg olvasható legyen */
   color: var(--text-muted);
-  margin-bottom: 10px;      /* Kis távolság a listapontok között */
+  margin-bottom: 10px; 
+  text-align: justify;     /* Kis távolság a listapontok között */
 }
 
 .cta-link {
