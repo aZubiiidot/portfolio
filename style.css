@@ -935,13 +935,17 @@ body.nav-active .nav__list-item:nth-child(10) {
 
 .portfolio-Swiper {
   width: 100%;
-  max-width: 740px; /* PC-n itt megáll */
+  max-width: 740px;
+  margin-left: 0 !important;   /* 👈 Ez megakadályozza, hogy középre ugorjon ultraszéles monitoron */
+  margin-right: auto;
 }
 
-/* A View All gombot tartalmazó doboz korlátozása */
+/* A View All gomb konténere szintén balra zárva */
 .view-all-container {
   width: 100%;
-  max-width: 740px; /* Pontosan odáig érhet, ameddig a Swiper */
+  max-width: 740px;
+  margin-left: 0 !important;   /* 👈 Ez is tartja a bal oldali igazítást */
+  margin-right: auto;
 }
 
 .slide-in .swiper-slide span {
