@@ -309,8 +309,9 @@ li.fillingText {
 .section-nav ul {
   list-style: none;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
   gap: 40px;
 }
 
