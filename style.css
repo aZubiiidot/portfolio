@@ -933,6 +933,17 @@ body.nav-active .nav__list-item:nth-child(10) {
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
+.portfolio-Swiper .swiper-pagination-bullet {
+  background-color: #ffffff !important;
+  opacity: 0.3 !important;
+}
+
+/* Az éppen aktív pötty színe (teljesen világító fehér) */
+.portfolio-Swiper .swiper-pagination-bullet-active {
+  background-color: #e62828 !important;
+  opacity: 1 !important;
+}
+
 .portfolio-Swiper {
   width: 100%;
   max-width: 740px;
