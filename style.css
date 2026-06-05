@@ -1264,7 +1264,7 @@ body.nav-active .nav__list-item:nth-child(10) {
   transform-origin: left;
 }
 
-/* bg image slider */
+/* bg image slider
 .image-slider {
   height: 100vh;
   position: absolute;
@@ -1272,7 +1272,27 @@ body.nav-active .nav__list-item:nth-child(10) {
   width: 100%;
   max-width: 760px;
   z-index: 0;
+} */
+
+.image-slider {
+  position: absolute;
+  top: 0;
+  left: 0;                   /* 👈 Kényszerítjük, hogy a bal szélen maradjon, ne ugorjon középre */
+  width: 100%;
+  max-width: 760px;          /* PC-n eddig nyúlhat ki */
+  height: 100vh;             /* Megtartja a teljes magasságot */
+  z-index: 0;
+  overflow: hidden;          /* Biztosítja, hogy ami kilóg, az ne látsszon */
 }
+
+/* 💥 EZ A KULCS: Meg kell mondanunk a sliderben lévő képeknek (vagy magának a háttérnek), hogyan viselkedjenek */
+.image-slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* 👈 Arányosan méretezi a képet: kitölti a teret, és ha kell, az aljából/széléből vág le, de NEM torzít */
+  object-position: top center; /* 👈 A kép tetejét és közepét fixálja, így garantáltan az alja fog levágódni, ha változik a szélesség */
+}
+
 
 .contact-link {
     text-decoration: underline;
