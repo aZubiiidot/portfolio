@@ -11,7 +11,7 @@
       .then(r => r.text())
       .then(html => {
         // Minden 'href="css/' vagy 'href="js/' kezdetű utat kiegészítünk a megfelelő prefixszel
-        let fixedHtml = html.replace(/href="(css|js|images|fonts)\//g, 'href="../../$1/');
+        let fixedHtml = html.replace(/href="(css|js|images|fonts)\//g, 'href="../$1/');
         document.head.insertAdjacentHTML('beforeend', fixedHtml);
       });
   </script>
