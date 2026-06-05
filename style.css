@@ -250,6 +250,12 @@ body {
   max-width: 490px;
 }
 
+.fillingText {
+  line-height: 1.0;
+  color: var(--text-muted);
+  max-width: 850px;
+}
+
 .cta-link {
   font-weight: 700;
   font-size: 24px;
