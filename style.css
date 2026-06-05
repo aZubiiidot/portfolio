@@ -811,7 +811,7 @@ body.nav-active .nav__list-item:nth-child(10) {
 --------------------------------------------------------------*/
 .skill-chart li {
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   font-weight: 500;
 }
 
