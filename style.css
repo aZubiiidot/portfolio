@@ -857,6 +857,17 @@ body.nav-active .nav__list-item:nth-child(10) {
 
 /*----- Skills
 --------------------------------------------------------------*/
+.info-element {
+  width: 100%;
+  max-width: 740px; /* Nem nyúlik túl 740px-nél */
+}
+
+/* A skill chartokat tartalmazó doboz korlátozása */
+.skill-chart {
+  width: 100%;
+  max-width: 740px; /* Ez is megáll 740px-nél */
+}
+
 .skill-chart li {
   width: 100%;
   margin-bottom: 20px;
