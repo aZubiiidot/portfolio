@@ -1176,3 +1176,19 @@ body.nav-active .nav__list-item:nth-child(10) {
   max-width: 760px;
   z-index: 0;
 }
+
+.contact-link {
+    text-decoration: underline;
+    /* Beállíthatod az aláhúzás vastagságát */
+    text-decoration-thickness: 2px;
+    /* Ez a trükk: eltávolítja az aláhúzást a betűktől, így sokkal elegánsabb */
+    text-underline-offset: 10px;
+    /* Választható: az aláhúzás színe lehet más, mint a szövegé */
+    text-decoration-color: rgba(255, 255, 255, 0.5); 
+    transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+    text-decoration-color: rgba(255, 255, 255, 1);
+    opacity: 0.8;
+}
