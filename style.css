@@ -250,6 +250,15 @@ body {
   max-width: 490px;
 }
 
+.sideText {
+  line-height: 1.3; 
+  width: 100%;
+  color: var(--text-muted);
+  max-width: 300px;         /* Itt fixen meg fog állni a széthúzás */
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
 .fillingText {
   line-height: 1.3; 
   width: 100%;
