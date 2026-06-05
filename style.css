@@ -1277,7 +1277,7 @@ body.nav-active .nav__list-item:nth-child(10) {
 .image-slider {
   position: absolute;
   top: 0;
-  left: -5%;                   /* 👈 Kényszerítjük, hogy a bal szélen maradjon, ne ugorjon középre */
+  left: -20%;                   /* 👈 Kényszerítjük, hogy a bal szélen maradjon, ne ugorjon középre */
   width: 100%;
   max-width: 900px;          /* PC-n eddig nyúlhat ki */
   height: 100vh;     
