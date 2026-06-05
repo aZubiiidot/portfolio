@@ -301,6 +301,11 @@ li.fillingText {
   color: var(--text-color);
 }
 
+.section-nav {
+  position: relative;
+  z-index: 10000;    
+}
+
 .section-nav ul {
   list-style: none;
   padding: 0;
