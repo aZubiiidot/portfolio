@@ -108,7 +108,7 @@ const prefix = window.subPagePrefix || "";
           loadedCount++;
           if (loadedCount === projectFiles.length) {
             // Ha mindent letöltöttünk, sorrendben fűzzük a HTML-hez
-            orderedSlides.forEach(function(html) {
+            orderedSlides.reverse().forEach(function(html) {
               if (html) wrapper.insertAdjacentHTML("beforeend", html);
             });
             initPortfolioSwiper();
@@ -168,7 +168,7 @@ const prefix = window.subPagePrefix || "";
           // Ha az összes kártya bekerült a memóriába
           if (loadedCount === projectFiles.length) {
             // Egyszerre, a tömb sorrendjében pakoljuk be őket a HTML-be
-            orderedCards.forEach(function(html) {
+            orderedCards.reverse().forEach(function(html) {
               if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
             });
 
