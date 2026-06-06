@@ -63,12 +63,13 @@ const prefix = window.subPagePrefix || "";
     }
   }
 
-  // Funkció, ami felépíti a swiper tartalmát a metaadatokból
+  // JAVÍTOTT FUNKCIÓ (INDEX OLDAL): Sorrendtartás biztosítása Swipernél
   var loadDynamicPortfolio = function(wrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
+    var orderedSlides = new Array(projectFiles.length); // Fix méretű tömb a sorrend megőrzéséhez
 
-    projectFiles.forEach(function(fileName) {
+    projectFiles.forEach(function(fileName, index) {
       fetch(basePath + fileName)
         .then(function(response) {
           if (!response.ok) throw new Error("Fájl nem található: " + fileName);
@@ -101,10 +102,15 @@ const prefix = window.subPagePrefix || "";
             </div>
           `;
 
-          wrapper.insertAdjacentHTML("beforeend", slideHTML);
+          // Nem azonnal fűzzük hozzá, hanem elmentjük a pontos helyére
+          orderedSlides[index] = slideHTML;
           
           loadedCount++;
           if (loadedCount === projectFiles.length) {
+            // Ha mindent letöltöttünk, sorrendben fűzzük a HTML-hez
+            orderedSlides.forEach(function(html) {
+              if (html) wrapper.insertAdjacentHTML("beforeend", html);
+            });
             initPortfolioSwiper();
           }
         })
@@ -112,18 +118,22 @@ const prefix = window.subPagePrefix || "";
           console.error("Hiba a projekt betöltése közben:", err);
           loadedCount++;
           if (loadedCount === projectFiles.length) {
+            orderedSlides.forEach(function(html) {
+              if (html) wrapper.insertAdjacentHTML("beforeend", html);
+            });
             initPortfolioSwiper();
           }
         });
     });
   }
 
-  // VÉGLEGES, JAVÍTOTT FUNKCIÓ: Portfólió kártyák legenerálása, Isotope indítás és magasság-igazítás
+  // JAVÍTOTT FUNKCIÓ (PORTFÓLIÓ OLDAL): Sorrendtartás biztosítása a rácsnál
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
+    var orderedCards = new Array(projectFiles.length); // Fix méretű tömb a sorrend megőrzéséhez
 
-    projectFiles.forEach(function(fileName) {
+    projectFiles.forEach(function(fileName, index) {
       fetch(basePath + fileName)
         .then(function(response) {
           if (!response.ok) throw new Error("Fájl nem található: " + fileName);
@@ -150,17 +160,22 @@ const prefix = window.subPagePrefix || "";
             </div>
           `;
 
-          masonryWrapper.insertAdjacentHTML("beforeend", itemHTML);
+          // Elmentjük a kártyát a saját index helyére
+          orderedCards[index] = itemHTML;
           
           loadedCount++;
           
-          // Ha az összes kártya bekerült a helyére
+          // Ha az összes kártya bekerült a memóriába
           if (loadedCount === projectFiles.length) {
-            // Frissítjük a lightboxot, hogy lehessen kattintani a képekre
+            // Egyszerre, a tömb sorrendjében pakoljuk be őket a HTML-be
+            orderedCards.forEach(function(html) {
+              if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
+            });
+
+            // Lightbox és Animációk frissítése
             if (typeof initChocolat === 'function') {
               initChocolat();
             }
-            // Frissítjük az AOS-t, hogy láthatóvá váljanak a kártyák
             if (typeof AOS !== 'undefined') {
               AOS.refresh();
             }
@@ -168,6 +183,12 @@ const prefix = window.subPagePrefix || "";
         })
         .catch(function(err) {
           console.error("Hiba a masonry elem betöltésekor:", err);
+          loadedCount++;
+          if (loadedCount === projectFiles.length) {
+            orderedCards.forEach(function(html) {
+              if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
+            });
+          }
         });
     });
   }
