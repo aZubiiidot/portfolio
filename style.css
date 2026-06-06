@@ -508,11 +508,7 @@ li.fillingText {
 
 @media (max-width: 575.98px) {
   .name {
-    font-size: 38px !important;
-    line-height: 1.0 !important;
-    display: block !important;
-    -webkit-text-size-adjust: none !important;
-    text-size-adjust: none !important;
+    font-size: 15px;
   }
 
   .section-nav ul {
@@ -1326,45 +1322,23 @@ body.nav-active .nav__list-item:nth-child(10) {
 } */
 
 .image-slider {
-  position: absolute; /* Eredeti helyén tartja a Bootstrap rácsban */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   max-width: 850px;
   height: 100vh;
   z-index: 0;
-  
-  /* ⚡️ EZ A KULCS: Létrehozunk egy fixen álló "ablakot", amin keresztül a kép látszik */
-  clip-path: inset(0 0 0 0);
-  overflow: visible; /* Kiengedjük a képet a konténerből, hogy rögzülhessen */
+  overflow: hidden;
 }
 
-.image-slider .swiper-wrapper,
-.image-slider .swiper-slide {
+/* A Swiper slide-ok és a benne lévő képek tökéletes lefedése torzulás nélkül */
+.image-slider .swiper-slide,
+.image-slider img {
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* ⚡️ A KÉP BEÁLLÍTÁSA */
-.image-slider img {
-  position: fixed; /* Fixen a kijelzőhöz rögzítjük függőlegesen */
-  top: 0;
-  
-  /* Trükk: Nem engedjük, hogy balra ugorjon, hanem rákényszerítjük, 
-     html-szinten kövesse a szülő konténer vízszintes elhelyezkedését */
-  left: auto; 
-  
-  width: 100%;
-  max-width: 850px;
-  height: 100vh;
   object-fit: cover;
   object-position: top center;
-  
-  /* Kikapcsoljuk a Swiper belső transzformációját, ami elrontaná a fixedet */
-  transform: none !important; 
 }
 
 
