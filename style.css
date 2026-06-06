@@ -669,7 +669,12 @@ li.fillingText {
 --------------------------------------------------------------*/
 .nav-overlay {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 9;
+  pointer-events: none;
 }
 
 .nav-overlay:before,
@@ -821,6 +826,7 @@ body.nav-active .menu-icon:hover .menu-icon__line-right {
 } */
 body.nav-active .nav-overlay {
   visibility: visible;
+  pointer-events: auto;
 }
 
 body.nav-active .nav-overlay:before,
@@ -1000,6 +1006,12 @@ body.nav-active .nav__list-item:nth-child(10) {
   max-width: 740px;
   margin-left: 0 !important;   /* 👈 Ez megakadályozza, hogy középre ugorjon ultraszéles monitoron */
   margin-right: auto;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+.portfolio-Swiper .swiper-slide {
+  pointer-events: auto !important;
 }
 
 /* A View All gomb konténere szintén balra zárva */
