@@ -33,8 +33,8 @@ const prefix = window.subPagePrefix || "";
       "P260_Operation_Kabul.html",
       "P270_Delta_Force.html",
       "P280_War_Robots_Frontiers.html",
-      "P290_OBS-Unannounced_Scifi_Game.html",
-      "P300_OGL-Unannounced_Animation_Movie.html",
+      "P290_Unannounced_Game.html",
+      "P300_Unannounced_Movie.html",
       // "P02_Masik_Projekt.html",
     ];
 
