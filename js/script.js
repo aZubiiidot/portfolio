@@ -185,22 +185,21 @@ const prefix = window.subPagePrefix || "";
 
           // HTML ÚJRASTRUKTURÁLÁSA: Masonry kártyákra is pontosan ráültetve a logó szisztéma
           var itemHTML = `
-            <div class="col">
-              <div class="portfolio-card" style="margin-bottom: 30px;">
-                <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
-                  ${title}
-                </div>
-                
-                <a href="${basePath}${fileName}" title="${title}">
-                  <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;">
-                </a>
-                
-                <div class="caption d-flex justify-content-end align-items-center mt-2">
-                  <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+            <div class="col" style="padding: 12px;"> <div class="portfolio-card" style="margin-bottom: 15px;">
+                  <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
+                    ${title}
+                  </div>
+                  
+                  <a href="${basePath}${fileName}" title="${title}">
+                    <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;" style="width: 100%; display: block;">
+                  </a>
+                  
+                  <div class="caption d-flex justify-content-end align-items-center mt-2">
+                    <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          `;
+            `;
 
           orderedCards[index] = itemHTML;
           
