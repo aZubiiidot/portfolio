@@ -120,6 +120,7 @@ const prefix = window.subPagePrefix || "";
 
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
+    var loadedCount = 0;
 
     projectFiles.forEach(function(fileName) {
       fetch(basePath + fileName)
@@ -147,9 +148,46 @@ const prefix = window.subPagePrefix || "";
           `;
 
           masonryWrapper.insertAdjacentHTML("beforeend", itemHTML);
+          
+          loadedCount++;
+          
+          // Ha az összes projektfájl be lett szúrva a HTML-be
+          if (loadedCount === projectFiles.length) {
+            
+            // Rövid időzítés, hogy a böngésző elkezdhesse renderelni a képeket és meglegyen a fizikai méretük
+            setTimeout(function() {
+              if ($.fn.isotope) {
+                // Inicializáljuk az Isotope-ot a rácson
+                var $grid = $('.grid').isotope({
+                  itemSelector: '.portfolio-item',
+                  layoutMode: 'fitRows'
+                });
+
+                // KÉNYSERÍTETT JAVÍTÁS: Újraolvassuk az elemeket, elrendezzük őket, 
+                // és explicit módon megkérjük az Isotope-ot, hogy igazítsa hozzá a szülő konténer magasságát.
+                $grid.isotope('reloadItems');
+                $grid.isotope('layout');
+                
+                // Extra biztonsági háló: ha a képek lassan töltenek be a hálózaton, 
+                // amint az ablak teljesen kész, még egyszer újraszámoljuk a magasságot.
+                $(window).load(function() {
+                  $grid.isotope('layout');
+                });
+              }
+              
+              // Lightbox és Animációk frissítése
+              if (typeof initChocolat === 'function') initChocolat();
+              if (typeof AOS !== 'undefined') AOS.refresh();
+              
+            }, 350); // Enyhén megemelt időzítés a stabilabb futásért
+          }
         })
         .catch(function(err) {
           console.error("Hiba a masonry elem betöltésekor:", err);
+          loadedCount++;
+          if (loadedCount === projectFiles.length && $.fn.isotope) {
+            $('.grid').isotope('layout');
+          }
         });
     });
   }
