@@ -1337,12 +1337,29 @@ body.nav-active .nav__list-item:nth-child(10) {
 }
 
 /* A Swiper slide-ok és a benne lévő képek tökéletes lefedése torzulás nélkül */
-.image-slider .swiper-slide,
-.image-slider img {
+.image-slider .swiper-slide {
   width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+
+.image-slider img {
+  position: fixed; /* Görgetésnél fixen a háttérben marad */
+  top: 0;
+  
+  /* Nem engedjük, hogy a képernyő legbaloldalára ugorjon. 
+     A 'inherit' kényszeríti, hogy kövesse a szülő (.image-slider) vízszintes helyzetét! */
+  left: inherit; 
+  
+  width: 100%;
+  max-width: 850px;
+  height: 100vh;
   object-fit: cover;
   object-position: top center;
+  
+  /* Megakadályozza, hogy a Swiper hardveres gyorsítása (translate3d) 
+     felülbírálja a fixed pozíciót görgetés közben */
+  transform: none !important; 
 }
 
 
