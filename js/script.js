@@ -118,6 +118,42 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
+  var loadMasonryPortfolio = function(masonryWrapper) {
+    var basePath = prefix + "portfolio/pages/";
+
+    projectFiles.forEach(function(fileName) {
+      fetch(basePath + fileName)
+        .then(function(response) {
+          if (!response.ok) throw new Error("Fájl nem található: " + fileName);
+          return response.text();
+        })
+        .then(function(htmlString) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(htmlString, "text/html");
+
+          // Metaadatok kiszedése az aloldalak fejlécéből
+          var title = doc.querySelector('meta[name="portfolio-title"]')?.getAttribute("content") || fileName.replace(".html", "");
+          var image = doc.querySelector('meta[name="portfolio-image"]')?.getAttribute("content") || "images/port-item1.jpg";
+          
+          var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
+
+          // A letisztított Bootstrap oszlop struktúra a képeknek
+          var itemHTML = `
+            <div class="col mb-4 portfolio-item">
+              <a href="${basePath}${fileName}" class="image-link" title="${title}">
+                <img src="${finalImage}" class="img-fluid" alt="${title}" draggable="false" ondragstart="return false;">
+              </a>
+            </div>
+          `;
+
+          masonryWrapper.insertAdjacentHTML("beforeend", itemHTML);
+        })
+        .catch(function(err) {
+          console.error("Hiba a masonry elem betöltésekor:", err);
+        });
+    });
+  }
+
   // A te pontos Swiper beállításaid külön funkcióba téve
   var initPortfolioSwiper = function() {
     new Swiper(".portfolio-Swiper", {
@@ -223,6 +259,11 @@ const prefix = window.subPagePrefix || "";
     
     Promise.all([navFetch, sidebarFetch]).then(function() {
       init_slider();
+
+      var masonryWrapper = document.getElementById("masonry-portfolio-wrapper");
+      if (masonryWrapper) {
+        loadMasonryPortfolio(masonryWrapper);
+      }
     }).catch(function(err){ 
       console.error('Fetch load failed, fallback slider init', err);
       init_slider();
