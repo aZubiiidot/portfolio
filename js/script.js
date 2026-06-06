@@ -118,6 +118,7 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
+  // VÉGLEGES, JAVÍTOTT FUNKCIÓ: Portfólió kártyák legenerálása, Isotope indítás és magasság-igazítás
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
@@ -132,13 +133,12 @@ const prefix = window.subPagePrefix || "";
           var parser = new DOMParser();
           var doc = parser.parseFromString(htmlString, "text/html");
 
-          // Metaadatok kiszedése az aloldalak fejlécéből
+          // Metaadatok kiszedése
           var title = doc.querySelector('meta[name="portfolio-title"]')?.getAttribute("content") || fileName.replace(".html", "");
           var image = doc.querySelector('meta[name="portfolio-image"]')?.getAttribute("content") || "images/port-item1.jpg";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // A letisztított Bootstrap oszlop struktúra a képeknek
           var itemHTML = `
             <div class="col mb-4 portfolio-item">
               <a href="${basePath}${fileName}" class="image-link" title="${title}">
