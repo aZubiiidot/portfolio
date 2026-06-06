@@ -463,11 +463,6 @@ li.fillingText {
   .cta-button {
     padding: 40px 30px;
   }
-
-  .image-slider {
-    left: 0;
-    width: 100%;
-  }
 }
 
 @media (max-width: 767.98px) {
@@ -508,11 +503,6 @@ li.fillingText {
   .cta-button {
     width: 100%;
     padding: 30px 20px;
-  }
-  
-  .image-slider {
-    left: 0;
-    width: 100%;
   }
 }
 
@@ -1336,10 +1326,10 @@ body.nav-active .nav__list-item:nth-child(10) {
 } */
 
 .image-slider {
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 25%;
-  width: 75%;
+  left: 0;
+  width: 100%;
   max-width: 850px;
   height: 100vh;
   z-index: 0;
