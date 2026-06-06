@@ -235,6 +235,10 @@ const prefix = window.subPagePrefix || "";
     new Swiper(".portfolio-Swiper", {
       slidesPerView: 4,
       spaceBetween: 30,
+      mousewheel: {
+        forceToAxis: true, // Biztosítja, hogy a vízszintes görgetés ne rángassa el a teljes weboldalt függőlegesen
+        sensitivity: 1,    // A görgetés érzékenysége (ha túl gyors/lassú, itt finomhangolhatod)
+      },
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
