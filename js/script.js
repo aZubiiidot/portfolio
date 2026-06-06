@@ -4,6 +4,14 @@ const prefix = window.subPagePrefix || "";
 
   "use strict";
 
+  var projectFiles = [
+      "P01_The_Valiant.html",
+      "P02_Alters.html",
+      "P03_Frostpunk.html",
+      // "P02_Masik_Projekt.html",
+    ];
+
+
   var init_slider = function() {
     var nav_swiper = new Swiper(".swiper.banner-nav-slider", {
       slidesPerView: "auto",
@@ -45,7 +53,74 @@ const prefix = window.subPagePrefix || "";
     banner_swiper.on('slideChange', updatePagination);
 
     // Portfolio Slider
-    var swiper = new Swiper(".portfolio-Swiper", {
+    var wrapper = document.getElementById("dynamic-portfolio-wrapper");
+    if (wrapper) {
+      loadDynamicPortfolio(wrapper);
+    } else {
+      // Ha nincs ilyen wrapper (mert pl. nem az index.html-en vagyunk), 
+      // de a HTML-ben mégis ott lenne a fix struktúra, akkor simán elindítja.
+      initPortfolioSwiper();
+    }
+  }
+
+  // Funkció, ami felépíti a swiper tartalmát a metaadatokból
+  var loadDynamicPortfolio = function(wrapper) {
+    var basePath = prefix + "portfolio/pages/";
+    var loadedCount = 0;
+
+    projectFiles.forEach(function(fileName) {
+      fetch(basePath + fileName)
+        .then(function(response) {
+          if (!response.ok) throw new Error("Fájl nem található: " + fileName);
+          return response.text();
+        })
+        .then(function(htmlString) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(htmlString, "text/html");
+
+          // Metaadatok kiszedése az aloldalak fejlécéből
+          var title = doc.querySelector('meta[name="portfolio-title"]')?.getAttribute("content") || fileName.replace(".html", "");
+          var image = doc.querySelector('meta[name="portfolio-image"]')?.getAttribute("content") || "images/port-item1.jpg";
+          var format = doc.querySelector('meta[name="portfolio-format"]')?.getAttribute("content") || "project";
+          var formatColor = doc.querySelector('meta[name="portfolio-format-color"]')?.getAttribute("content") || "";
+
+          // Dinamikus kép-útvonal igazítás a prefix-szel (ha kell)
+          var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
+
+          var slideHTML = `
+            <div class="swiper-slide">
+              <div class="image-holder">
+                <a href="${basePath}${fileName}" title="${title} details">
+                  <img src="${finalImage}" alt="${title}" class="img-fluid">
+                </a>
+              </div>
+              <div class="caption d-flex justify-content-between align-items-center">
+                <div class="title">${title}</div>
+                <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+              </div>
+            </div>
+          `;
+
+          wrapper.insertAdjacentHTML("beforeend", slideHTML);
+          
+          loadedCount++;
+          if (loadedCount === projectFiles.length) {
+            initPortfolioSwiper();
+          }
+        })
+        .catch(function(err) {
+          console.error("Hiba a projekt betöltése közben:", err);
+          loadedCount++;
+          if (loadedCount === projectFiles.length) {
+            initPortfolioSwiper();
+          }
+        });
+    });
+  }
+
+  // A te pontos Swiper beállításaid külön funkcióba téve
+  var initPortfolioSwiper = function() {
+    new Swiper(".portfolio-Swiper", {
       slidesPerView: 4,
       spaceBetween: 30,
       pagination: {
