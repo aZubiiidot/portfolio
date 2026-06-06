@@ -153,7 +153,7 @@ const prefix = window.subPagePrefix || "";
           var itemHTML = `
             <div class="col">
               <div class="portfolio-card" style="margin-bottom: 20px;">
-                <a href="${basePath}${fileName}" class="image-link" title="${title}">
+                <a href="${basePath}${fileName}" title="${title}">
                   <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;">
                 </a>
               </div>
