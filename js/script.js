@@ -90,7 +90,8 @@ const prefix = window.subPagePrefix || "";
     }
   }
 
-    var loadDynamicPortfolio = function(wrapper) {
+  // JAVÍTÁS (INDEX OLDAL): Cím FENT, formátum LENT + Három pont (...) túlnyúlás ellen
+  var loadDynamicPortfolio = function(wrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
     var orderedSlides = new Array(projectFiles.length);
@@ -112,17 +113,21 @@ const prefix = window.subPagePrefix || "";
 
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // MÓDOSÍTÁS: A 'caption' osztályú div a kép főlé került, kapott egy kis alsó margót (mb-2)
+          // HTML ÚJRASTREKTURÁLÁSA: Title fent (ellipsis-szel), Format lent (jobbra zárva)
           var slideHTML = `
             <div class="swiper-slide">
-              <div class="caption d-flex justify-content-between align-items-center mb-2">
-                <div class="title">${title}</div>
-                <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+              <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500;">
+                ${title}
               </div>
+              
               <div class="image-holder">
                 <a href="${basePath}${fileName}" title="${title} details">
                   <img src="${finalImage}" alt="${title}" class="img-fluid">
                 </a>
+              </div>
+              
+              <div class="caption d-flex justify-content-end align-items-center mt-2">
+                <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
               </div>
             </div>
           `;
@@ -141,7 +146,7 @@ const prefix = window.subPagePrefix || "";
           console.error("Hiba a projekt betöltése közben:", err);
           loadedCount++;
           if (loadedCount === projectFiles.length) {
-            orderedSlides.forEach(function(html) {
+            orderedSlides.reverse().forEach(function(html) {
               if (html) wrapper.insertAdjacentHTML("beforeend", html);
             });
             initPortfolioSwiper();
@@ -150,10 +155,16 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
+  // JAVÍTÁS (PORTFÓLIÓ OLDAL): Cím FENT, formátum LENT + FIX 3 OSZLOP minden nézetben
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
     var orderedCards = new Array(projectFiles.length);
+
+    // KÉNYSZERÍTÉS: Átírjuk a szülő konténert, hogy mobilon és PC-n is fixen 3 oszlopos legyen (Bootstrap row-cols-3)
+    if (masonryWrapper) {
+      masonryWrapper.className = "row row-cols-3 g-4"; 
+    }
 
     projectFiles.forEach(function(fileName, index) {
       fetch(basePath + fileName)
@@ -165,7 +176,6 @@ const prefix = window.subPagePrefix || "";
           var parser = new DOMParser();
           var doc = parser.parseFromString(htmlString, "text/html");
 
-          // MÓDOSÍTÁS: Formátum adatok kiolvasása a portfólió rácshoz is
           var title = doc.querySelector('meta[name="portfolio-title"]')?.getAttribute("content") || fileName.replace(".html", "");
           var image = doc.querySelector('meta[name="portfolio-image"]')?.getAttribute("content") || "images/port-item1.jpg";
           var format = doc.querySelector('meta[name="portfolio-format"]')?.getAttribute("content") || "project";
@@ -173,17 +183,21 @@ const prefix = window.subPagePrefix || "";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // MÓDOSÍTÁS: Itt is beágyaztam a 'caption' részt a kép fölé, megtartva az index stílusait
+          // HTML ÚJRASTRUKTURÁLÁSA: Masonry kártyákra is pontosan ráültetve a logó szisztéma
           var itemHTML = `
             <div class="col">
               <div class="portfolio-card" style="margin-bottom: 30px;">
-                <div class="caption d-flex justify-content-between align-items-center mb-2">
-                  <div class="title" style="font-weight: 500; font-size: 0.95rem;">${title}</div>
-                  <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+                <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
+                  ${title}
                 </div>
+                
                 <a href="${basePath}${fileName}" title="${title}">
                   <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;">
                 </a>
+                
+                <div class="caption d-flex justify-content-end align-items-center mt-2">
+                  <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+                </div>
               </div>
             </div>
           `;
@@ -209,7 +223,7 @@ const prefix = window.subPagePrefix || "";
           console.error("Hiba a masonry elem betöltésekor:", err);
           loadedCount++;
           if (loadedCount === projectFiles.length) {
-            orderedCards.forEach(function(html) {
+            orderedCards.reverse().forEach(function(html) {
               if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
             });
           }
