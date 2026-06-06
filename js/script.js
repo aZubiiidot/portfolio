@@ -165,7 +165,7 @@ const prefix = window.subPagePrefix || "";
     // és beállítjuk: mobilon alapból 2 oszlop (row-cols-2), tablettől/PC-től felfelé 3 oszlop (row-cols-md-3)
     if (masonryWrapper) {
       masonryWrapper.classList.remove("row-cols-1", "row-cols-md-2", "row-cols-lg-3", "row-cols-3");
-      masonryWrapper.classList.add("row-cols-2", "row-cols-md-3"); 
+      masonryWrapper.classList.add("row-cols-2", "row-cols-md-3", "g-4", "gy-4"); 
     }
 
     projectFiles.forEach(function(fileName, index) {
