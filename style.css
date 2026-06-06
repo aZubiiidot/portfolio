@@ -1330,6 +1330,7 @@ body.nav-active .nav__list-item:nth-child(10) {
   height: 100vh;
   z-index: 0;
   overflow: hidden;
+  clip-path: inset(0 0 20% 0);
 }
 
 /* A Swiper slide-ok és a benne lévő képek tökéletes lefedése torzulás nélkül */
