@@ -90,11 +90,10 @@ const prefix = window.subPagePrefix || "";
     }
   }
 
-  // JAVÍTOTT FUNKCIÓ (INDEX OLDAL): Sorrendtartás biztosítása Swipernél
-  var loadDynamicPortfolio = function(wrapper) {
+    var loadDynamicPortfolio = function(wrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
-    var orderedSlides = new Array(projectFiles.length); // Fix méretű tömb a sorrend megőrzéséhez
+    var orderedSlides = new Array(projectFiles.length);
 
     projectFiles.forEach(function(fileName, index) {
       fetch(basePath + fileName)
@@ -106,35 +105,32 @@ const prefix = window.subPagePrefix || "";
           var parser = new DOMParser();
           var doc = parser.parseFromString(htmlString, "text/html");
 
-          // Metaadatok kiszedése az aloldalak fejlécéből
           var title = doc.querySelector('meta[name="portfolio-title"]')?.getAttribute("content") || fileName.replace(".html", "");
           var image = doc.querySelector('meta[name="portfolio-image"]')?.getAttribute("content") || "images/port-item1.jpg";
           var format = doc.querySelector('meta[name="portfolio-format"]')?.getAttribute("content") || "project";
           var formatColor = doc.querySelector('meta[name="portfolio-format-color"]')?.getAttribute("content") || "";
 
-          // Dinamikus kép-útvonal igazítás a prefix-szel (ha kell)
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
+          // MÓDOSÍTÁS: A 'caption' osztályú div a kép főlé került, kapott egy kis alsó margót (mb-2)
           var slideHTML = `
             <div class="swiper-slide">
+              <div class="caption d-flex justify-content-between align-items-center mb-2">
+                <div class="title">${title}</div>
+                <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+              </div>
               <div class="image-holder">
                 <a href="${basePath}${fileName}" title="${title} details">
                   <img src="${finalImage}" alt="${title}" class="img-fluid">
                 </a>
               </div>
-              <div class="caption d-flex justify-content-between align-items-center">
-                <div class="title">${title}</div>
-                <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
-              </div>
             </div>
           `;
 
-          // Nem azonnal fűzzük hozzá, hanem elmentjük a pontos helyére
           orderedSlides[index] = slideHTML;
           
           loadedCount++;
           if (loadedCount === projectFiles.length) {
-            // Ha mindent letöltöttünk, sorrendben fűzzük a HTML-hez
             orderedSlides.reverse().forEach(function(html) {
               if (html) wrapper.insertAdjacentHTML("beforeend", html);
             });
@@ -154,11 +150,10 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
-  // JAVÍTOTT FUNKCIÓ (PORTFÓLIÓ OLDAL): Sorrendtartás biztosítása a rácsnál
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
-    var orderedCards = new Array(projectFiles.length); // Fix méretű tömb a sorrend megőrzéséhez
+    var orderedCards = new Array(projectFiles.length);
 
     projectFiles.forEach(function(fileName, index) {
       fetch(basePath + fileName)
@@ -170,16 +165,22 @@ const prefix = window.subPagePrefix || "";
           var parser = new DOMParser();
           var doc = parser.parseFromString(htmlString, "text/html");
 
-          // Metaadatok kiszedése
+          // MÓDOSÍTÁS: Formátum adatok kiolvasása a portfólió rácshoz is
           var title = doc.querySelector('meta[name="portfolio-title"]')?.getAttribute("content") || fileName.replace(".html", "");
           var image = doc.querySelector('meta[name="portfolio-image"]')?.getAttribute("content") || "images/port-item1.jpg";
+          var format = doc.querySelector('meta[name="portfolio-format"]')?.getAttribute("content") || "project";
+          var formatColor = doc.querySelector('meta[name="portfolio-format-color"]')?.getAttribute("content") || "";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // Bootstrap 'col' struktúra
+          // MÓDOSÍTÁS: Itt is beágyaztam a 'caption' részt a kép fölé, megtartva az index stílusait
           var itemHTML = `
             <div class="col">
-              <div class="portfolio-card" style="margin-bottom: 20px;">
+              <div class="portfolio-card" style="margin-bottom: 30px;">
+                <div class="caption d-flex justify-content-between align-items-center mb-2">
+                  <div class="title" style="font-weight: 500; font-size: 0.95rem;">${title}</div>
+                  <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+                </div>
                 <a href="${basePath}${fileName}" title="${title}">
                   <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;">
                 </a>
@@ -187,19 +188,15 @@ const prefix = window.subPagePrefix || "";
             </div>
           `;
 
-          // Elmentjük a kártyát a saját index helyére
           orderedCards[index] = itemHTML;
           
           loadedCount++;
           
-          // Ha az összes kártya bekerült a memóriába
           if (loadedCount === projectFiles.length) {
-            // Egyszerre, a tömb sorrendjében pakoljuk be őket a HTML-be
             orderedCards.reverse().forEach(function(html) {
               if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
             });
 
-            // Lightbox és Animációk frissítése
             if (typeof initChocolat === 'function') {
               initChocolat();
             }
@@ -228,6 +225,8 @@ const prefix = window.subPagePrefix || "";
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
+        dynamicBullets: true,
+        dynamicMainBullets: 1,
       },
       breakpoints: {
         300: {
