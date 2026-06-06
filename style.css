@@ -1393,37 +1393,53 @@ body.nav-active .nav__list-item:nth-child(10) {
     opacity: 0.7;
 }
 /*skilltree */
-.tech-stack-container {
-  max-width: 740px;
+.tech-stack-element {
   width: 100%;
-  margin-top: 40px;
 }
-.stack-category h3 {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  letter-spacing: 1.5px;
+
+.stack-category {
+  margin-bottom: 35px;
+}
+
+.stack-category:last-child {
+  margin-bottom: 0;
+}
+
+/* Kategória címek: átveszik a meglévő piros/fő színedet és a letisztult tipográfiát */
+.stack-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--primary-color); /* A pirosod */
+  color: #d43030; /* Cseréld ki ideális esetben var(--primary-color)-ra ha van */
   margin-bottom: 15px;
-  margin-top: 30px;
 }
-.tags {
+
+/* Flexbox konténer a bageknek, hogy szépen törjenek mobilon is */
+.tech-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
-.tag {
-  font-family: 'Roboto', sans-serif;
+
+/* A gombok/tagek egyedi, sötét, indusztriális megjelenése */
+.t-tag {
   font-size: 14px;
-  font-weight: 500;
-  padding: 8px 16px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text-light);
-  transition: all 0.3s ease;
+  font-weight: 400;
+  color: #e0e0e0;
+  padding: 8px 18px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0px; /* Marad a szögletes, maszkulin/cyberpunk minimalizmus */
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: default;
+  user-select: none;
 }
-.tag:hover {
-  border-color: var(--primary-color);
-  color: #fff;
-  background-color: rgba(212, 48, 48, 0.05);
+
+/* Finom, elegáns hover effekt, ami reakcióba lép a kurzorral */
+.t-tag:hover {
+  color: #ffffff;
+  border-color: #d43030; /* Finom piros keret az aktív szoftvereknek */
+  background-color: rgba(214, 48, 48, 0.03);
+  transform: translateY(-2px); /* Minimális lebegés a mélységérzetért */
 }
