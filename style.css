@@ -1334,6 +1334,8 @@ body.nav-active .nav__list-item:nth-child(10) {
   height: 100vh;
   z-index: 0;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
 }
 
 /* A Swiper slide-ok és a benne lévő képek tökéletes lefedése torzulás nélkül */
