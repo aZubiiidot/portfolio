@@ -123,6 +123,9 @@ const prefix = window.subPagePrefix || "";
     new Swiper(".portfolio-Swiper", {
       slidesPerView: 4,
       spaceBetween: 30,
+      observer: true,
+      observeParents: true,
+      touchStartPreventDefault: false,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
