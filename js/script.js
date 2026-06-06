@@ -163,7 +163,7 @@ const prefix = window.subPagePrefix || "";
 
     // KÉNYSZERÍTÉS: Átírjuk a szülő konténert, hogy mobilon és PC-n is fixen 3 oszlopos legyen (Bootstrap row-cols-3)
     if (masonryWrapper) {
-      masonryWrapper.className = "row row-cols-3 g-4"; 
+      masonryWrapper.className = "row row-cols-2 g-4"; 
     }
 
     projectFiles.forEach(function(fileName, index) {
