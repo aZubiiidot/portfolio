@@ -139,11 +139,14 @@ const prefix = window.subPagePrefix || "";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
+          // Bootstrap 'col' struktúra
           var itemHTML = `
-            <div class="col mb-4 portfolio-item">
-              <a href="${basePath}${fileName}" class="image-link" title="${title}">
-                <img src="${finalImage}" class="img-fluid" alt="${title}" draggable="false" ondragstart="return false;">
-              </a>
+            <div class="col">
+              <div class="portfolio-card" style="margin-bottom: 20px;">
+                <a href="${basePath}${fileName}" class="image-link" title="${title}">
+                  <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;">
+                </a>
+              </div>
             </div>
           `;
 
@@ -151,43 +154,20 @@ const prefix = window.subPagePrefix || "";
           
           loadedCount++;
           
-          // Ha az összes projektfájl be lett szúrva a HTML-be
+          // Ha az összes kártya bekerült a helyére
           if (loadedCount === projectFiles.length) {
-            
-            // Rövid időzítés, hogy a böngésző elkezdhesse renderelni a képeket és meglegyen a fizikai méretük
-            setTimeout(function() {
-              if ($.fn.isotope) {
-                // Inicializáljuk az Isotope-ot a rácson
-                var $grid = $('.grid').isotope({
-                  itemSelector: '.portfolio-item',
-                  layoutMode: 'fitRows'
-                });
-
-                // KÉNYSERÍTETT JAVÍTÁS: Újraolvassuk az elemeket, elrendezzük őket, 
-                // és explicit módon megkérjük az Isotope-ot, hogy igazítsa hozzá a szülő konténer magasságát.
-                $grid.isotope('reloadItems');
-                $grid.isotope('layout');
-                
-                // Extra biztonsági háló: ha a képek lassan töltenek be a hálózaton, 
-                // amint az ablak teljesen kész, még egyszer újraszámoljuk a magasságot.
-                $(window).load(function() {
-                  $grid.isotope('layout');
-                });
-              }
-              
-              // Lightbox és Animációk frissítése
-              if (typeof initChocolat === 'function') initChocolat();
-              if (typeof AOS !== 'undefined') AOS.refresh();
-              
-            }, 350); // Enyhén megemelt időzítés a stabilabb futásért
+            // Frissítjük a lightboxot, hogy lehessen kattintani a képekre
+            if (typeof initChocolat === 'function') {
+              initChocolat();
+            }
+            // Frissítjük az AOS-t, hogy láthatóvá váljanak a kártyák
+            if (typeof AOS !== 'undefined') {
+              AOS.refresh();
+            }
           }
         })
         .catch(function(err) {
           console.error("Hiba a masonry elem betöltésekor:", err);
-          loadedCount++;
-          if (loadedCount === projectFiles.length && $.fn.isotope) {
-            $('.grid').isotope('layout');
-          }
         });
     });
   }
