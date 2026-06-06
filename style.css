@@ -674,7 +674,6 @@ li.fillingText {
   width: 100vw;
   height: 100vh;
   z-index: 9;
-  pointer-events: none;
 }
 
 .nav-overlay:before,
@@ -826,7 +825,6 @@ body.nav-active .menu-icon:hover .menu-icon__line-right {
 } */
 body.nav-active .nav-overlay {
   visibility: visible;
-  pointer-events: auto;
 }
 
 body.nav-active .nav-overlay:before,
