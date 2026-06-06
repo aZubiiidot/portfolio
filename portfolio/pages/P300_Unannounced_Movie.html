@@ -60,8 +60,8 @@
               <div class="fs-5" data-aos="fade-up" data-aos-delay="300">
                 <span class="introduction mb-4 d-block">PROJECT DESCRIPTION</span>
                 <p class="fillingText">
-                  This ongoing project is an upcoming animated feature film currently in development. 
-                  Visually, the movie requires a wide variety of dynamic effects to support the story. 
+                  This ongoing project is an upcoming animated feature film currently in development. <br />
+                  Visually, the movie requires a wide variety of dynamic effects to support the story. <br />
                   The production involves creating and managing a diverse range of simulations in Houdini, 
                   including smoke, fire, dust, explosions, fluid dynamics, and particle systems across various scenes.
                 </p>
@@ -82,7 +82,7 @@
             <div class="col-lg-12" pb-5>
               <div class="fs-5" data-aos="fade-up" data-aos-delay="300"></div>
                 <span class="introduction mb-4 d-block">MY TASKS</span>
-                <p>
+                <p class="fillingText">
                   With over 250 effects spread across more than 100 shots, manual scene assembly and asset delivery 
                   would have created massive production bottlenecks. My job was to automate these workflows inside 
                   Houdini and streamline our review pipeline using AYON.
@@ -91,23 +91,26 @@
                   <li class="fillingText">
                     Automated Scene Ingest & Assembly: The client provided layout data via Alembic caches accompanied 
                     by multiple JSON files describing the scene hierarchy. To eliminate manual setup for the artists, 
-                    I built a custom HDA. Based on the shot data initialized through AYON, the tool parses the main 
-                    JSON and its nested references, extracts asset paths, transformation data, and instance counts. 
+                    I built a custom HDA. <br />
+                    Based on the shot data initialized through AYON, the tool parses the main 
+                    JSON and its nested references, extracts asset paths, transformation data, and instance counts. <br />
                     With a single click, it builds the entire scene at the SOP level, automatically double-checking 
                     and validating frame ranges between both pipelines. It also features a version-comparison mode 
                     to visually flag updates if the client delivers new scene data.
                   </li>
                   <li class="fillingText">
                     Pipeline & Review Optimization: As our team transitioned to AYON for pipeline management, 
-                    I focused on leveraging its capabilities to optimize our daily operations. I helped implement 
-                    and refine the automated FX review publishing workflow, ensuring that simulations could be seamlessly 
+                    I focused on leveraging its capabilities to optimize our daily operations. <br />
+                    I helped implement and refine the automated FX review publishing workflow, ensuring that simulations could be seamlessly 
                     reviewed, iterated on, and approved internally before any final files were packaged for delivery.
                   </li>
                   <li class="fillingText">
                     Structured USD Export Pipeline: The client required all finalized effects to be delivered within a 
-                    strict, predefined USD hierarchy. To handle this, I engineered a multi-node toolset that automatically 
+                    strict, predefined USD hierarchy. <br />
+                    To handle this, I engineered a multi-node toolset that automatically 
                     detects the data type of various effects (volumes, particles, geometry) and caches them out to the correct 
-                    locations with strict naming conventions. The tool then automatically compiles these caches into a final 
+                    locations with strict naming conventions. <br />
+                    The tool then automatically compiles these caches into a final 
                     USD composition, making the assets ready for the client to drop directly into their master scene without 
                     any additional technical adjustment.
                   </li>
