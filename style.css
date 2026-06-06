@@ -1392,3 +1392,38 @@ body.nav-active .nav__list-item:nth-child(10) {
     text-decoration-color: rgb(105, 13, 13);
     opacity: 0.7;
 }
+/*skilltree */
+.tech-stack-container {
+  max-width: 740px;
+  width: 100%;
+  margin-top: 40px;
+}
+.stack-category h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--primary-color); /* A pirosod */
+  margin-bottom: 15px;
+  margin-top: 30px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tag {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  transition: all 0.3s ease;
+}
+.tag:hover {
+  border-color: var(--primary-color);
+  color: #fff;
+  background-color: rgba(212, 48, 48, 0.05);
+}
