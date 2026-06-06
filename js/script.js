@@ -155,14 +155,16 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
-  // JAVÍTOTT FUNKCIÓ (PORTFÓLIÓ OLDAL): Mobilon 2 kép, PC-n/Tableten 3 kép + elegáns térköz
+  // JAVÍTÁS (PORTFÓLIÓ OLDAL): Cím FENT, formátum LENT + FIX 3 OSZLOP minden nézetben
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
     var orderedCards = new Array(projectFiles.length);
 
-    // JAVÍTÁS: Kitöröljük a HTML-ben lévő régi reszponzív osztályokat,
-    // és beállítjuk: mobilon alapból 2 oszlop (row-cols-2), tablettől/PC-től felfelé 3 oszlop (row-cols-md-3)
+    // KÉNYSZERÍTÉS: Átírjuk a szülő konténert, hogy mobilon és PC-n is fixen 3 oszlopos legyen (Bootstrap row-cols-3)
+    if (masonryWrapper) {
+      masonryWrapper.className = "row row-cols-3 g-4"; 
+    }
 
     projectFiles.forEach(function(fileName, index) {
       fetch(basePath + fileName)
@@ -181,24 +183,23 @@ const prefix = window.subPagePrefix || "";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // A kártya HTML struktúrája változatlan marad, így a címek levágása és a gap tökéletesen működik
+          // HTML ÚJRASTRUKTURÁLÁSA: Masonry kártyákra is pontosan ráültetve a logó szisztéma
           var itemHTML = `
-            <div class="col">
-              <div class="portfolio-card" style="margin-bottom: 20px;">
-                <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
-                  ${title}
-                </div>
-                
-                <a href="${basePath}${fileName}" title="${title}">
-                  <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;" style="width: 100%; display: block;">
-                </a>
-                
-                <div class="caption d-flex justify-content-end align-items-center mt-2">
-                  <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+            <div class="col" style="padding: 12px;"> <div class="portfolio-card" style="margin-bottom: 15px;">
+                  <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
+                    ${title}
+                  </div>
+                  
+                  <a href="${basePath}${fileName}" title="${title}">
+                    <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;" style="width: 100%; display: block;">
+                  </a>
+                  
+                  <div class="caption d-flex justify-content-end align-items-center mt-2">
+                    <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          `;
+            `;
 
           orderedCards[index] = itemHTML;
           
