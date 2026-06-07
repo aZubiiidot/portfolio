@@ -213,8 +213,8 @@ body {
 
 .name {
   font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 90px;
+  font-weight: 700;
+  font-size: 50px;
   letter-spacing: -1px;
   /*font-size: 206px;*/
   line-height: 1.0;
@@ -224,7 +224,7 @@ body {
 .experience-name {
   font-family: 'Oswald', sans-serif;
   font-weight: 400;
-  font-size: 450px;
+  font-size: 45px;
   letter-spacing: -1px;
   /*font-size: 206px;*/
   line-height: 1.0;
