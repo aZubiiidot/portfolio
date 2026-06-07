@@ -1041,6 +1041,32 @@ body.nav-active .nav__list-item:nth-child(10) {
   color: #aaaaaa;        /* Átvesszi a var(--text-muted) elegáns szürkéjét */
 }
 
+@media (max-width: 768px) {
+  
+  /* Elrejtjük a szoftverek neveit */
+  .skill-name {
+    display: none;
+  }
+
+  /* A rácsot átalakítjuk, hogy az ikonok szépen, középre igazítva sorakozzanak */
+  .skills-grid {
+    /* Mobilon 3 helyett akár 5-6 ikon is elfér így egymás mellett, de ha a 3-as osztást szeretnéd megtartani: */
+    grid-template-columns: repeat(3, 1fr); 
+    
+    /* Ha inkább azt szeretnéd, hogy tömörüljenek és automatikusan töltsék ki a sort, használd ezt a sort a repeat(3, 1fr) HELYETT:
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); */
+
+    gap: 20px; /* Egyenletes távolság az ikonok között minden irányból */
+    justify-items: center; /* Vízszintesen középre zárja az ikonokat a saját kis cellájukban */
+  }
+
+  /* Középre rendezzük az ikont magában a flexboxban is */
+  .skill-item {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
 /* slide in */
 .slide-in .swiper-slide span,
 .slide-in .swiper-slide h2,
