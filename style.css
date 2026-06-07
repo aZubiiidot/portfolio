@@ -992,39 +992,45 @@ body.nav-active .nav__list-item:nth-child(10) {
 .skills-container {
   margin-top: 40px;
   margin-bottom: 60px;
+  width: 100%;
+  max-width: 740px;      /* 👈 Ez kényszeríti rá, hogy pont ott álljon meg, ahol a régi listád */
+  margin-left: 0;        /* Balra zárás ultra-széles monitorokon */
+  margin-right: auto;
 }
 
 /* Kategória címek (Software, Languages...) */
 .skills-category-title {
-  font-family: 'Oswald', sans-serif; /* Hogy passzoljon az új dizájnhoz */
+  font-family: 'Oswald', sans-serif;
   font-size: 20px;
   font-weight: 700;
   color: var(--text-color, #ffffff);
   margin-bottom: 25px;
   margin-top: 30px;
+  text-transform: uppercase; /* Csupa nagybetűs indusztriális stílus */
+  letter-spacing: 1px;
 }
 
-/* A rács, ami automatikusan kiszámolja az oszlopokat */
 .skills-grid {
   display: grid;
-  /* 3 oszlopos elrendezés, ami mobilon magától igazodik */
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px 40px; /* Függőleges és vízszintes távolság az elemek között */
+  /* Elérjük, hogy 3 fix oszlop legyen nagyobb kijelzőn, de mobilon rugalmasan törjön */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px 30px;        /* Sűrűbb, fegyelmezettebb távolságok */
   margin-bottom: 40px;
+  width: 100%;
 }
 
 /* Egy darab szoftver sor stílusa */
 .skill-item {
   display: flex;
-  align-items: center; /* Függőlegesen középre zárja az ikont és a szöveget */
-  gap: 15px;           /* Távolság az ikon és a szoftver neve között */
+  align-items: center;
+  gap: 15px;
 }
 
-/* Az ikonok egységes méretezése */
+/* Az ikonok mérete */
 .skill-icon {
-  width: 32px;        /* Pontosan akkora, ami szép és részletgazdag marad */
+  width: 32px;
   height: 32px;
-  object-fit: contain; /* Biztosítja, hogy az ikonok ne torzuljanak el */
+  object-fit: contain;
 }
 
 /* A szoftver neve */
@@ -1032,7 +1038,7 @@ body.nav-active .nav__list-item:nth-child(10) {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #e0e0e0;      /* Elegáns, majdnem fehér szín */
+  color: #aaaaaa;        /* Átvesszi a var(--text-muted) elegáns szürkéjét */
 }
 
 /* slide in */
