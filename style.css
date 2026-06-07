@@ -1529,6 +1529,11 @@ body.nav-active .nav__list-item:nth-child(10) {
     transition: all 0.3s ease;
 }
 
+.standard-portfolio-img, .image-holder img {
+    aspect-ratio: 16 / 9; /* Vagy amilyen arányúak a portfólió képeid */
+    background-color: #f0f0f0; /* Opcionális: szürke háttér amíg betölt */
+    object-fit: cover;
+
 .contact-link:hover {
     text-decoration-color: rgb(105, 13, 13);
     opacity: 0.7;
