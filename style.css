@@ -1050,29 +1050,38 @@ body.nav-active .nav__list-item:nth-child(10) {
   letter-spacing: 1px;
   display: block; /* Biztosítja, hogy ne csússzon rá semmire */
 }
+
 @media (max-width: 768px) {
   
-  /* Elrejtjük a szoftverek neveit */
+  /* Visszahozzuk a neveket, de kisebb betűmérettel, hogy ne legyen túl robusztus */
   .skill-name {
-    display: none;
+    display: block;      /* Eltávolítjuk a display: none-t */
+    font-size: 13px;     /* Mobilon picit kisebb, finomabb betűméret */
+    line-height: 1.2;
+    color: #aaaaaa;
+    word-break: break-word; /* Ha egy szó túl hosszú lenne, biztonságosan töri, nem lóg ki a cellából */
   }
 
-  /* A rácsot átalakítjuk, hogy az ikonok szépen, középre igazítva sorakozzanak */
+  /* A rácsot fixen 3 oszlopra kényszerítjük, balra igazítva */
   .skills-grid {
-    /* Mobilon 3 helyett akár 5-6 ikon is elfér így egymás mellett, de ha a 3-as osztást szeretnéd megtartani: */
     grid-template-columns: repeat(3, 1fr); 
-    
-    /* Ha inkább azt szeretnéd, hogy tömörüljenek és automatikusan töltsék ki a sort, használd ezt a sort a repeat(3, 1fr) HELYETT:
-    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); */
-
-    gap: 20px; /* Egyenletes távolság az ikonok között minden irányból */
-    justify-items: center; /* Vízszintesen középre zárja az ikonokat a saját kis cellájukban */
+    gap: 25px 15px;      /* Sorok között 25px (hogy elférjen a név az ikon alatt), oszlopok között 15px */
+    justify-items: start; /* A teljes cellatartalmat balra igazítja a rácsban */
   }
 
-  /* Középre rendezzük az ikont magában a flexboxban is */
+  /* Az ikon-szöveg párost egymás alá forgatjuk és balra zárjuk */
   .skill-item {
-    justify-content: center;
+    flex-direction: column; /* 👈 Ez teszi az ikont a név FÖLÉ */
+    align-items: flex-start; /* Balra igazítja az ikont és a szöveget egymáshoz képest */
+    justify-content: flex-start;
+    gap: 8px;            /* 8px távolság az ikon alja és a szoftver neve között */
     width: 100%;
+  }
+
+  /* Opcionális: Ha az ikonokat mobilon picit kisebbre vennéd (pl. 28px), itt megteheted, de maradhat 32px is */
+  .skill-icon {
+    width: 28px;
+    height: 28px;
   }
 }
 
