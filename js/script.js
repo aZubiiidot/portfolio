@@ -421,7 +421,7 @@ const prefix = window.subPagePrefix || "";
 	$(window).load(function() {
 		// $("#overlayer").fadeOut("slow");
 		$('body').addClass('loaded');
-    initIsotope();
+    //initIsotope();
 	});
 
 })(jQuery);
