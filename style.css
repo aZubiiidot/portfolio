@@ -440,6 +440,22 @@ li.fillingText {
   object-fit: cover;
 }
 
+@media (min-width: 1400px) {
+  /* A fő tartalmi oszlop flexboxá alakítása, hogy középre tudjuk húzni a tartalmát */
+  .col-lg-9.offset-lg-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  
+  /* Csak a belső sorokra és szekciókra hatunk, így a struktúra nem sérül */
+  .col-lg-9.offset-lg-3 > .row,
+  .col-lg-9.offset-lg-3 > section {
+    width: 100%;
+    max-width: 1250px; /* Itt megáll a széthúzás! Ezt ízlés szerint állíthatod 1100px - 1400px között */
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 1199.98px) {
   .name {
