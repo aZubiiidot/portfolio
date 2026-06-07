@@ -34,11 +34,10 @@ const prefix = window.subPagePrefix || "";
       "P270_Delta_Force.html",
       "P280_War_Robots_Frontiers.html",
       "P290_Unannounced_Game.html",
-      "P300_Unannounced_Movie.html"
+      "P300_Unannounced_Movie.html",
+      // "P02_Masik_Projekt.html",
     ];
 
-  // Globális változó a Swiper példány eléréséhez az újraszámoláshoz
-  var portfolioSwiperInstance = null;
 
   var init_slider = function() {
     var nav_swiper = new Swiper(".swiper.banner-nav-slider", {
@@ -53,9 +52,10 @@ const prefix = window.subPagePrefix || "";
         1200: { spaceBetween: 40 }
       }
     });
-
+    // banner swiper slide
     var banner_swiper = new Swiper(".swiper.banner-slider", {
       slidesPerView: 1,
+      // loop: true,
       speed: 900,
       autoplay: {
         delay: 4000,
@@ -65,68 +65,32 @@ const prefix = window.subPagePrefix || "";
       },
     });
     
+    // banner bg image swiper
     var image_slider = new Swiper(".swiper.image-slider", {
       slidesPerView: 1,
       speed: 900,
     });
     
+    // Update bg image
     function updatePagination() {
       image_slider.slideTo(banner_swiper.activeIndex);
     }
     
+    // Listen to slide changes from both sliders
     banner_swiper.on('slideChange', updatePagination);
 
+    // Portfolio Slider
     var wrapper = document.getElementById("dynamic-portfolio-wrapper");
     if (wrapper) {
       loadDynamicPortfolio(wrapper);
     } else {
+      // Ha nincs ilyen wrapper (mert pl. nem az index.html-en vagyunk), 
+      // de a HTML-ben mégis ott lenne a fix struktúra, akkor simán elindítja.
       initPortfolioSwiper();
     }
   }
 
-  // Segédfunkció, ami megvárja a képek betöltődését a wrapperen belül, majd frissíti a komponenseket
-  var waitForImagesAndRefresh = function(container) {
-    var images = container.querySelectorAll('img');
-    var loadedCount = 0;
-    var totalImages = images.length;
-
-    if (totalImages === 0) {
-      refreshLayouts();
-      return;
-    }
-
-    images.forEach(function(img) {
-      if (img.complete) {
-        onImageLoad();
-      } else {
-        img.addEventListener('load', onImageLoad);
-        img.addEventListener('error', onImageLoad); // Hiba esetén is számolunk tovább
-      }
-    });
-
-    function onImageLoad() {
-      loadedCount++;
-      if (loadedCount === totalImages) {
-        refreshLayouts();
-      }
-    }
-
-    function refreshLayouts() {
-      // Ha a Swiper már létezik, kényszerítjük a frissítésre
-      if (portfolioSwiperInstance) {
-        portfolioSwiperInstance.update();
-      }
-      // AOS animációk újraszámolása
-      if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-      }
-      // Ha Isotope-ot használsz ezen a részen is
-      if ($('.grid').length) {
-        $('.grid').isotope('layout');
-      }
-    }
-  }
-
+  // JAVÍTÁS (INDEX OLDAL): Cím FENT, formátum LENT + Három pont (...) túlnyúlás ellen
   var loadDynamicPortfolio = function(wrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
@@ -149,16 +113,19 @@ const prefix = window.subPagePrefix || "";
 
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
+          // HTML ÚJRASTREKTURÁLÁSA: Title fent (ellipsis-szel), Format lent (jobbra zárva)
           var slideHTML = `
             <div class="swiper-slide">
               <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500;">
                 ${title}
               </div>
+              
               <div class="image-holder">
                 <a href="${basePath}${fileName}" title="${title} details">
                   <img src="${finalImage}" alt="${title}" class="img-fluid">
                 </a>
               </div>
+              
               <div class="caption d-flex justify-content-end align-items-center mt-2">
                 <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
               </div>
@@ -166,15 +133,13 @@ const prefix = window.subPagePrefix || "";
           `;
 
           orderedSlides[index] = slideHTML;
+          
           loadedCount++;
-
           if (loadedCount === projectFiles.length) {
             orderedSlides.reverse().forEach(function(html) {
               if (html) wrapper.insertAdjacentHTML("beforeend", html);
             });
             initPortfolioSwiper();
-            // FIGYELÉS INDÍTÁSA: Megvárjuk a képeket
-            waitForImagesAndRefresh(wrapper);
           }
         })
         .catch(function(err) {
@@ -185,17 +150,18 @@ const prefix = window.subPagePrefix || "";
               if (html) wrapper.insertAdjacentHTML("beforeend", html);
             });
             initPortfolioSwiper();
-            waitForImagesAndRefresh(wrapper);
           }
         });
     });
   }
 
+  // JAVÍTÁS (PORTFÓLIÓ OLDAL): Cím FENT, formátum LENT + FIX 3 OSZLOP minden nézetben
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
     var orderedCards = new Array(projectFiles.length);
 
+    // KÉNYSZERÍTÉS: Átírjuk a szülő konténert, hogy mobilon és PC-n is fixen 3 oszlopos legyen (Bootstrap row-cols-3)
     if (masonryWrapper) {
       masonryWrapper.className = "row row-cols-2 row-cols-lg-3 g-4 gy-4";
     }
@@ -217,23 +183,26 @@ const prefix = window.subPagePrefix || "";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
+          // HTML ÚJRASTRUKTURÁLÁSA: Masonry kártyákra is pontosan ráültetve a logó szisztéma
           var itemHTML = `
-            <div class="col" style="padding: 12px;"> 
-              <div class="portfolio-card" style="margin-bottom: 15px;">
-                <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
-                  ${title}
-                </div>
-                <a href="${basePath}${fileName}" title="${title}">
-                  <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;" style="width: 100%; display: block;">
-                </a>
-                <div class="caption d-flex justify-content-end align-items-center mt-2">
-                  <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+            <div class="col" style="padding: 12px;"> <div class="portfolio-card" style="margin-bottom: 15px;">
+                  <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
+                    ${title}
+                  </div>
+                  
+                  <a href="${basePath}${fileName}" title="${title}">
+                    <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;" style="width: 100%; display: block;">
+                  </a>
+                  
+                  <div class="caption d-flex justify-content-end align-items-center mt-2">
+                    <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          `;
+            `;
 
           orderedCards[index] = itemHTML;
+          
           loadedCount++;
           
           if (loadedCount === projectFiles.length) {
@@ -244,8 +213,9 @@ const prefix = window.subPagePrefix || "";
             if (typeof initChocolat === 'function') {
               initChocolat();
             }
-            // FIGYELÉS INDÍTÁSA a masonry elemekre is
-            waitForImagesAndRefresh(masonryWrapper);
+            if (typeof AOS !== 'undefined') {
+              AOS.refresh();
+            }
           }
         })
         .catch(function(err) {
@@ -255,22 +225,19 @@ const prefix = window.subPagePrefix || "";
             orderedCards.reverse().forEach(function(html) {
               if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
             });
-            waitForImagesAndRefresh(masonryWrapper);
           }
         });
     });
   }
 
+  // A te pontos Swiper beállításaid külön funkcióba téve
   var initPortfolioSwiper = function() {
-    // Eltároljuk a példányt a globális változóba
-    portfolioSwiperInstance = new Swiper(".portfolio-Swiper", {
+    new Swiper(".portfolio-Swiper", {
       slidesPerView: 4,
       spaceBetween: 30,
-      observer: true,         // Plusz védelem: figyelje a DOM változásokat
-      observeParents: true,   // Figyelje a szülő elemek változását is
       mousewheel: {
-        forceToAxis: true,
-        sensitivity: 1,
+        forceToAxis: true, // Biztosítja, hogy a vízszintes görgetés ne rángassa el a teljes weboldalt függőlegesen
+        sensitivity: 1,    // A görgetés érzékenysége (ha túl gyors/lassú, itt finomhangolhatod)
       },
       pagination: {
         el: ".swiper-pagination",
@@ -279,13 +246,22 @@ const prefix = window.subPagePrefix || "";
         dynamicMainBullets: 1,
       },
       breakpoints: {
-        300: { slidesPerView: 2 },
-        768: { slidesPerView: 2, spaceBetween: 20 },
-        1200: { slidesPerView: 3, spaceBetween: 30 },
+        300: {
+          slidesPerView: 2,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
       },
     });
   }
 
+  // Animate Texts
   var initTextFx = function () {
     $('.txt-fx').each(function () {
       var newstr = '';
@@ -297,44 +273,58 @@ const prefix = window.subPagePrefix || "";
       
       $.each( words, function( key, value ) {
         newstr = '<span class="word">';
+
         for ( var i = 0, l = value.length; i < l; i++ ) {
           newstr += "<span class='letter' style='transition-delay:"+ ( delay + stagger * count ) +"ms;'>"+ value[ i ] +"</span>";
           count++;
         }
         newstr += '</span>';
+
         arrWords.push(newstr);
         count++;
       });
+
       this.innerHTML = arrWords.join("<span class='letter' style='transition-delay:"+ delay +"ms;'>&nbsp;</span>");
     });
   }
 
+  // init Isotope
   var initIsotope = function() {
+    
     $('.grid').each(function(){
-      var $buttonGroup = $( '.button-group' );
-      var $checked = $buttonGroup.find('.is-checked');
-      var filterValue = $checked.attr('data-filter');
 
-      var $grid = $('.grid').isotope({
-        itemSelector: '.portfolio-item',
-        filter: filterValue
-      });
+      // $('.grid').imagesLoaded( function() {
+        // images have loaded
+        var $buttonGroup = $( '.button-group' );
+        var $checked = $buttonGroup.find('.is-checked');
+        var filterValue = $checked.attr('data-filter');
   
-      $('.button-group').on( 'click', 'a', function(e) {
-        e.preventDefault();
-        filterValue = $( this ).attr('data-filter');
-        $grid.isotope({ filter: filterValue });
-      });
-  
-      $('.button-group').each( function( i, buttonGroup ) {
-        $buttonGroup.on( 'click', 'a', function() {
-          $buttonGroup.find('.is-checked').removeClass('is-checked');
-          $( this ).addClass('is-checked');
+        var $grid = $('.grid').isotope({
+          itemSelector: '.portfolio-item',
+          // layoutMode: 'fitRows',
+          filter: filterValue
         });
-      });
+    
+        // bind filter button click
+        $('.button-group').on( 'click', 'a', function(e) {
+          e.preventDefault();
+          filterValue = $( this ).attr('data-filter');
+          $grid.isotope({ filter: filterValue });
+        });
+    
+        // change is-checked class on buttons
+        $('.button-group').each( function( i, buttonGroup ) {
+          $buttonGroup.on( 'click', 'a', function() {
+            $buttonGroup.find('.is-checked').removeClass('is-checked');
+            $( this ).addClass('is-checked');
+          });
+        });
+      // });
+
     });
   }
 
+  // init Chocolat light box
   var initChocolat = function() {
     Chocolat(document.querySelectorAll('.image-link'), {
       imageSize: 'contain',
@@ -343,6 +333,9 @@ const prefix = window.subPagePrefix || "";
   }
 
   $(document).ready(function () {
+    // load shared nav and sidebar partials via fetch for consistency with head.html
+    //fetch('nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; }).catch(function(err){ console.error('nav load failed', err); });
+    //fetch('sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; }).catch(function(err){ console.error('sidebar load failed', err); });
     var navFetch = fetch(prefix + 'nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; });
     var sidebarFetch = fetch(prefix + 'sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; });
     
@@ -362,22 +355,22 @@ const prefix = window.subPagePrefix || "";
     initChocolat();
     initIsotope();
 
+    // mobile menu (delegated so it works for dynamically loaded nav)
     $(document).on('click', '.menu-btn', function(e){
       $('body').toggleClass('nav-active');
     });
 
     AOS.init({
       duration: 1200,
+      // once: true,
     })
   });
 
-  // JAVÍTVA: A modern jQuery-ben a $(window).load() hibát dobhat, az .on('load') a helyes!
-  $(window).on('load', function() {
-    $('body').addClass('loaded');
+  // preloader
+	$(window).load(function() {
+		// $("#overlayer").fadeOut("slow");
+		$('body').addClass('loaded');
     initIsotope();
-    if (typeof AOS !== 'undefined') {
-      AOS.refresh();
-    }
-  });
+	});
 
 })(jQuery);
