@@ -223,7 +223,7 @@ body {
 
 .experience-name {
   font-family: 'Oswald', sans-serif;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 45px;
   letter-spacing: -1px;
   /*font-size: 206px;*/
@@ -479,6 +479,15 @@ li.fillingText {
 @media (max-width: 767.98px) {
   .name {
     font-size: 45px; /* Kényszerített kis méret mobilon */
+    line-height: 1.0 !important;
+    display: block !important;
+    -webkit-text-size-adjust: none !important;
+    text-size-adjust: none !important;
+    max-height: max-content !important;
+  }
+
+  .experience-name {
+    font-size: 20px; /* Kényszerített kis méret mobilon */
     line-height: 1.0 !important;
     display: block !important;
     -webkit-text-size-adjust: none !important;
