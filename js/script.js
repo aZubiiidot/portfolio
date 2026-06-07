@@ -230,14 +230,16 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
-  // A te pontos Swiper beállításaid külön funkcióba téve
+  // JAVÍTÁS ITT: Hozzáadva az observer és az observeParents
   var initPortfolioSwiper = function() {
     new Swiper(".portfolio-Swiper", {
       slidesPerView: 4,
       spaceBetween: 30,
+      observer: true,         // <--- ÚJ: Figyeli a DOM változásokat (amikor a fetch beilleszti a HTML-t)
+      observeParents: true,   // <--- ÚJ: Figyeli a szülő elemeket is (újraméretezés ellen)
       mousewheel: {
-        forceToAxis: true, // Biztosítja, hogy a vízszintes görgetés ne rángassa el a teljes weboldalt függőlegesen
-        sensitivity: 1,    // A görgetés érzékenysége (ha túl gyors/lassú, itt finomhangolhatod)
+        forceToAxis: true, 
+        sensitivity: 1,    
       },
       pagination: {
         el: ".swiper-pagination",
@@ -333,9 +335,6 @@ const prefix = window.subPagePrefix || "";
   }
 
   $(document).ready(function () {
-    // load shared nav and sidebar partials via fetch for consistency with head.html
-    //fetch('nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; }).catch(function(err){ console.error('nav load failed', err); });
-    //fetch('sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; }).catch(function(err){ console.error('sidebar load failed', err); });
     var navFetch = fetch(prefix + 'nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; });
     var sidebarFetch = fetch(prefix + 'sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; });
     
@@ -366,11 +365,15 @@ const prefix = window.subPagePrefix || "";
     })
   });
 
-  // preloader
-	$(window).load(function() {
-		// $("#overlayer").fadeOut("slow");
-		$('body').addClass('loaded');
+  // JAVÍTÁS ITT: $(window).load() helyett a szabványos $(window).on('load') használata
+  $(window).on('load', function() {
+    $('body').addClass('loaded');
     initIsotope();
-	});
+    
+    // Frissítéskor kényszerítjük a megnyitott könyvtárakat az elrendezés újraszámolására
+    if (typeof AOS !== 'undefined') {
+      AOS.refresh();
+    }
+  });
 
 })(jQuery);
