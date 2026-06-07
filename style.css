@@ -1041,6 +1041,15 @@ body.nav-active .nav__list-item:nth-child(10) {
   color: #aaaaaa;        /* Átvesszi a var(--text-muted) elegáns szürkéjét */
 }
 
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem; /* Megtartja a HTML-be írt méretet */
+  color: var(--text-color, #ffffff); /* Biztosítja, hogy ne legyen láthatatlan */
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  display: block; /* Biztosítja, hogy ne csússzon rá semmire */
+}
 @media (max-width: 768px) {
   
   /* Elrejtjük a szoftverek neveit */
