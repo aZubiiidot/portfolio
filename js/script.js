@@ -4,6 +4,7 @@ const prefix = window.subPagePrefix || "";
 
   "use strict";
 
+  // List of project HTML files to fetch dynamically
   var projectFiles = [
       "P010_Tifon.html",
       "P020_Lexus.html",
@@ -34,11 +35,10 @@ const prefix = window.subPagePrefix || "";
       "P270_Delta_Force.html",
       "P280_War_Robots_Frontiers.html",
       "P290_Unannounced_Game.html",
-      "P300_Unannounced_Movie.html",
-      // "P02_Masik_Projekt.html",
+      "P300_Unannounced_Movie.html"
     ];
 
-
+  // Initialize main banners and slider modules
   var init_slider = function() {
     var nav_swiper = new Swiper(".swiper.banner-nav-slider", {
       slidesPerView: "auto",
@@ -52,10 +52,9 @@ const prefix = window.subPagePrefix || "";
         1200: { spaceBetween: 40 }
       }
     });
-    // banner swiper slide
+
     var banner_swiper = new Swiper(".swiper.banner-slider", {
       slidesPerView: 1,
-      // loop: true,
       speed: 900,
       autoplay: {
         delay: 4000,
@@ -65,32 +64,26 @@ const prefix = window.subPagePrefix || "";
       },
     });
     
-    // banner bg image swiper
     var image_slider = new Swiper(".swiper.image-slider", {
       slidesPerView: 1,
       speed: 900,
     });
     
-    // Update bg image
     function updatePagination() {
       image_slider.slideTo(banner_swiper.activeIndex);
     }
     
-    // Listen to slide changes from both sliders
     banner_swiper.on('slideChange', updatePagination);
 
-    // Portfolio Slider
     var wrapper = document.getElementById("dynamic-portfolio-wrapper");
     if (wrapper) {
       loadDynamicPortfolio(wrapper);
     } else {
-      // Ha nincs ilyen wrapper (mert pl. nem az index.html-en vagyunk), 
-      // de a HTML-ben mégis ott lenne a fix struktúra, akkor simán elindítja.
       initPortfolioSwiper();
     }
   }
 
-  // JAVÍTÁS (INDEX OLDAL): Cím FENT, formátum LENT + Három pont (...) túlnyúlás ellen
+  // Fetch and build portfolio slider items for the index page
   var loadDynamicPortfolio = function(wrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
@@ -99,7 +92,7 @@ const prefix = window.subPagePrefix || "";
     projectFiles.forEach(function(fileName, index) {
       fetch(basePath + fileName)
         .then(function(response) {
-          if (!response.ok) throw new Error("Fájl nem található: " + fileName);
+          if (!response.ok) throw new Error("File not found: " + fileName);
           return response.text();
         })
         .then(function(htmlString) {
@@ -113,7 +106,6 @@ const prefix = window.subPagePrefix || "";
 
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // HTML ÚJRASTREKTURÁLÁSA: Title fent (ellipsis-szel), Format lent (jobbra zárva)
           var slideHTML = `
             <div class="swiper-slide">
               <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500;">
@@ -143,7 +135,7 @@ const prefix = window.subPagePrefix || "";
           }
         })
         .catch(function(err) {
-          console.error("Hiba a projekt betöltése közben:", err);
+          console.error("Error loading project:", err);
           loadedCount++;
           if (loadedCount === projectFiles.length) {
             orderedSlides.reverse().forEach(function(html) {
@@ -155,13 +147,12 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
-  // JAVÍTÁS (PORTFÓLIÓ OLDAL): Cím FENT, formátum LENT + FIX 3 OSZLOP minden nézetben
+  // Fetch and build 3-column grid items for the portfolio subpage
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
     var orderedCards = new Array(projectFiles.length);
 
-    // KÉNYSZERÍTÉS: Átírjuk a szülő konténert, hogy mobilon és PC-n is fixen 3 oszlopos legyen (Bootstrap row-cols-3)
     if (masonryWrapper) {
       masonryWrapper.className = "row row-cols-2 row-cols-lg-3 g-4 gy-4";
     }
@@ -169,7 +160,7 @@ const prefix = window.subPagePrefix || "";
     projectFiles.forEach(function(fileName, index) {
       fetch(basePath + fileName)
         .then(function(response) {
-          if (!response.ok) throw new Error("Fájl nem található: " + fileName);
+          if (!response.ok) throw new Error("File not found: " + fileName);
           return response.text();
         })
         .then(function(htmlString) {
@@ -183,28 +174,27 @@ const prefix = window.subPagePrefix || "";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // HTML ÚJRASTRUKTURÁLÁSA: Masonry kártyákra is pontosan ráültetve a logó szisztéma
           var itemHTML = `
-            <div class="col" style="padding: 12px;"> <div class="portfolio-card" style="margin-bottom: 15px;">
-                  <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
-                    ${title}
-                  </div>
-                  
-                  <a href="${basePath}${fileName}" title="${title}">
-                    <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;" style="width: 100%; display: block;">
-                  </a>
-                  
-                  <div class="caption d-flex justify-content-end align-items-center mt-2">
-                    <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
-                  </div>
+            <div class="col" style="padding: 12px;"> 
+              <div class="portfolio-card" style="margin-bottom: 15px;">
+                <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
+                  ${title}
+                </div>
+                
+                <a href="${basePath}${fileName}" title="${title}">
+                  <img src="${finalImage}" class="img-fluid standard-portfolio-img" alt="${title}" draggable="false" ondragstart="return false;" style="width: 100%; display: block;">
+                </a>
+                
+                <div class="caption d-flex justify-content-end align-items-center mt-2">
+                  <a href="${basePath}${fileName}" class="image-format ${formatColor}">${format}</a>
                 </div>
               </div>
-            `;
+            </div>
+          `;
 
           orderedCards[index] = itemHTML;
           
           loadedCount++;
-          
           if (loadedCount === projectFiles.length) {
             orderedCards.reverse().forEach(function(html) {
               if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
@@ -219,7 +209,7 @@ const prefix = window.subPagePrefix || "";
           }
         })
         .catch(function(err) {
-          console.error("Hiba a masonry elem betöltésekor:", err);
+          console.error("Error loading masonry item:", err);
           loadedCount++;
           if (loadedCount === projectFiles.length) {
             orderedCards.reverse().forEach(function(html) {
@@ -230,13 +220,13 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
-  // JAVÍTÁS ITT: Hozzáadva az observer és az observeParents
+  // Initialize the main portfolio Swiper instance with DOM mutation tracking
   var initPortfolioSwiper = function() {
     new Swiper(".portfolio-Swiper", {
       slidesPerView: 4,
       spaceBetween: 30,
-      observer: true,         // <--- ÚJ: Figyeli a DOM változásokat (amikor a fetch beilleszti a HTML-t)
-      observeParents: true,   // <--- ÚJ: Figyeli a szülő elemeket is (újraméretezés ellen)
+      observer: true,         // Re-init Swiper when slides are added via fetch
+      observeParents: true,   // Re-init Swiper when container styles change
       mousewheel: {
         forceToAxis: true, 
         sensitivity: 1,    
@@ -248,22 +238,14 @@ const prefix = window.subPagePrefix || "";
         dynamicMainBullets: 1,
       },
       breakpoints: {
-        300: {
-          slidesPerView: 2,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        1200: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
-      },
+        300: { slidesPerView: 2 },
+        768: { slidesPerView: 2, spaceBetween: 20 },
+        1200: { slidesPerView: 3, spaceBetween: 30 }
+      }
     });
   }
 
-  // Animate Texts
+  // Split text into individual letters for CSS delay animations
   var initTextFx = function () {
     $('.txt-fx').each(function () {
       var newstr = '';
@@ -275,13 +257,11 @@ const prefix = window.subPagePrefix || "";
       
       $.each( words, function( key, value ) {
         newstr = '<span class="word">';
-
         for ( var i = 0, l = value.length; i < l; i++ ) {
           newstr += "<span class='letter' style='transition-delay:"+ ( delay + stagger * count ) +"ms;'>"+ value[ i ] +"</span>";
           count++;
         }
         newstr += '</span>';
-
         arrWords.push(newstr);
         count++;
       });
@@ -290,43 +270,34 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
-  // init Isotope
+  // Initialize Isotope filtering grid
   var initIsotope = function() {
-    
     $('.grid').each(function(){
+      var $buttonGroup = $( '.button-group' );
+      var $checked = $buttonGroup.find('.is-checked');
+      var filterValue = $checked.attr('data-filter');
 
-      // $('.grid').imagesLoaded( function() {
-        // images have loaded
-        var $buttonGroup = $( '.button-group' );
-        var $checked = $buttonGroup.find('.is-checked');
-        var filterValue = $checked.attr('data-filter');
+      var $grid = $('.grid').isotope({
+        itemSelector: '.portfolio-item',
+        filter: filterValue
+      });
   
-        var $grid = $('.grid').isotope({
-          itemSelector: '.portfolio-item',
-          // layoutMode: 'fitRows',
-          filter: filterValue
+      $('.button-group').on( 'click', 'a', function(e) {
+        e.preventDefault();
+        filterValue = $( this ).attr('data-filter');
+        $grid.isotope({ filter: filterValue });
+      });
+  
+      $('.button-group').each( function( i, buttonGroup ) {
+        $buttonGroup.on( 'click', 'a', function() {
+          $buttonGroup.find('.is-checked').removeClass('is-checked');
+          $( this ).addClass('is-checked');
         });
-    
-        // bind filter button click
-        $('.button-group').on( 'click', 'a', function(e) {
-          e.preventDefault();
-          filterValue = $( this ).attr('data-filter');
-          $grid.isotope({ filter: filterValue });
-        });
-    
-        // change is-checked class on buttons
-        $('.button-group').each( function( i, buttonGroup ) {
-          $buttonGroup.on( 'click', 'a', function() {
-            $buttonGroup.find('.is-checked').removeClass('is-checked');
-            $( this ).addClass('is-checked');
-          });
-        });
-      // });
-
+      });
     });
   }
 
-  // init Chocolat light box
+  // Initialize Chocolat light box gallery
   var initChocolat = function() {
     Chocolat(document.querySelectorAll('.image-link'), {
       imageSize: 'contain',
@@ -334,6 +305,7 @@ const prefix = window.subPagePrefix || "";
     })
   }
 
+  // Document Ready trigger
   $(document).ready(function () {
     var navFetch = fetch(prefix + 'nav.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('nav-placeholder').innerHTML = html; });
     var sidebarFetch = fetch(prefix + 'sidebar.html').then(function(r){ return r.text(); }).then(function(html){ document.getElementById('sidebar-placeholder').innerHTML = html; });
@@ -354,23 +326,20 @@ const prefix = window.subPagePrefix || "";
     initChocolat();
     initIsotope();
 
-    // mobile menu (delegated so it works for dynamically loaded nav)
     $(document).on('click', '.menu-btn', function(e){
       $('body').toggleClass('nav-active');
     });
 
     AOS.init({
       duration: 1200,
-      // once: true,
     })
   });
 
-  // JAVÍTÁS ITT: $(window).load() helyett a szabványos $(window).on('load') használata
+  // Window Load trigger to handle final asset positioning
   $(window).on('load', function() {
     $('body').addClass('loaded');
     initIsotope();
     
-    // Frissítéskor kényszerítjük a megnyitott könyvtárakat az elrendezés újraszámolására
     if (typeof AOS !== 'undefined') {
       AOS.refresh();
     }
