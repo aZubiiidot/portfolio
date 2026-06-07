@@ -1114,6 +1114,31 @@ body.nav-active .nav__list-item:nth-child(10) {
   margin-right: auto;
 }
 
+/* Dinamikus portfólió szűrő gombok stílusa */
+#dynamic-portfolio-filters .button-group {
+  margin-top: 20px;
+}
+
+#dynamic-portfolio-filters .filter-button {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #888888;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+/* Hover (egér felette) és aktív állapot stílusa */
+#dynamic-portfolio-filters .filter-button:hover,
+#dynamic-portfolio-filters .filter-button.is-checked {
+  color: #ffffff; /* Aktív állapotban fehéren világít */
+  border-bottom: 2px solid #ffffff; /* Aláhúzás az aktív szűrőnek */
+}
+
 /* A View All gomb konténere szintén balra zárva */
 .view-all-container {
   width: 100%;

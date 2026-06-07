@@ -155,15 +155,19 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
-  // JAVÍTÁS (PORTFÓLIÓ OLDAL): Cím FENT, formátum LENT + FIX 3 OSZLOP minden nézetben
+// JAVÍTÁS (PORTFÓLIÓ OLDAL): Cím FENT, formátum LENT + FIX 3 OSZLOP minden nézetben + DINAMIKUS FILTEREK
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
     var orderedCards = new Array(projectFiles.length);
+    
+    // Ebben a halmazban gyűjtjük össze a formátumokat a gombokhoz (duplikáció nélkül)
+    var uniqueFormats = new Set(); 
 
-    // KÉNYSZERÍTÉS: Átírjuk a szülő konténert, hogy mobilon és PC-n is fixen 3 oszlopos legyen (Bootstrap row-cols-3)
+    // KÉNYSZERÍTÉS: Átírjuk a szülő konténert a Bootstrap rácsrendszerére
+    // Fontos: az Isotope miatt hozzáadjuk a 'grid' osztályt is!
     if (masonryWrapper) {
-      masonryWrapper.className = "row row-cols-2 row-cols-lg-3 g-4 gy-4";
+      masonryWrapper.className = "grid row row-cols-2 row-cols-lg-3 g-4 gy-4";
     }
 
     projectFiles.forEach(function(fileName, index) {
@@ -183,9 +187,18 @@ const prefix = window.subPagePrefix || "";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // HTML ÚJRASTRUKTURÁLÁSA: Masonry kártyákra is pontosan ráültetve a logó szisztéma
+          // Elmentjük a formátumot a szűrőhöz
+          if (format) {
+            uniqueFormats.add(format.trim());
+          }
+
+          // CSS osztály-barát nevet készítünk a formátumból (pl. "TV Series" -> "tv-series")
+          var formatClass = format.toLowerCase().replace(/[^a-z0-9]/g, "-");
+
+          // HTML ÚJRASTRUKTURÁLÁSA: Hozzáadtuk a 'portfolio-item' és a dinamikus 'formatClass' osztályokat az Isotope-nak
           var itemHTML = `
-            <div class="col" style="padding: 12px;"> <div class="portfolio-card" style="margin-bottom: 15px;">
+            <div class="col portfolio-item ${formatClass}" style="padding: 12px;"> 
+                <div class="portfolio-card" style="margin-bottom: 15px;">
                   <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
                     ${title}
                   </div>
@@ -202,13 +215,15 @@ const prefix = window.subPagePrefix || "";
             `;
 
           orderedCards[index] = itemHTML;
-          
           loadedCount++;
           
           if (loadedCount === projectFiles.length) {
             orderedCards.reverse().forEach(function(html) {
               if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
             });
+
+            // SIKERES BETÖLTÉS UTÁN: Dinamikus gombok legyártása és Isotope indítása
+            createFilterButtons(uniqueFormats, masonryWrapper);
 
             if (typeof initChocolat === 'function') {
               initChocolat();
@@ -228,7 +243,47 @@ const prefix = window.subPagePrefix || "";
           }
         });
     });
-  }
+  };
+
+  // ÚJ SEGÉDFÜGGVÉNY: Legyártja a gombokat és összeköti az Isotope-pal
+  var createFilterButtons = function(formatsSet, wrapperElement) {
+    var filterContainer = document.getElementById("dynamic-portfolio-filters");
+    if (!filterContainer) return;
+
+    // Kezdő "All" gomb létrehozása
+    var buttonsHTML = `<a href="#" class="filter-button is-checked mx-2" data-filter="*">All</a>`;
+
+    // Dinamikus gombok hozzáadása a beolvasott formátumok alapján
+    formatsSet.forEach(function(format) {
+      var formatClass = format.toLowerCase().replace(/[^a-z0-9]/g, "-");
+      buttonsHTML += `<a href="#" class="filter-button mx-2" data-filter=".${formatClass}">${format}</a>`;
+    });
+
+    // Befecskendezzük a gombokat a HTML-be
+    filterContainer.innerHTML = `<div class="button-group text-center mb-5">${buttonsHTML}</div>`;
+
+    // Inicializáljuk az Isotope-ot a frissen betöltött elemekre
+    var $grid = $(wrapperElement).isotope({
+      itemSelector: '.portfolio-item',
+      layoutMode: 'fitRows'
+    });
+
+    // Újrarendezés képek betöltődése után (megelőzi az egymásra csúszást)
+    $grid.imagesLoaded?.(function() {
+      $grid.isotope('layout');
+    });
+
+    // Isotope szűrés eseménykezelése
+    $(filterContainer).on('click', 'a', function(e) {
+      e.preventDefault();
+      var filterValue = $(this).attr('data-filter');
+      $grid.isotope({ filter: filterValue });
+
+      // Aktív osztály (is-checked) cseréje a gombokon
+      $(filterContainer).find('.is-checked').removeClass('is-checked');
+      $(this).addClass('is-checked');
+    });
+  };
 
   // A te pontos Swiper beállításaid külön funkcióba téve
   var initPortfolioSwiper = function() {
