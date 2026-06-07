@@ -222,7 +222,7 @@ const prefix = window.subPagePrefix || "";
               if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
             });
 
-            // SIKERES BETÖLTÉS UTÁN: Dinamikus gombok legyártása és Isotope indítása
+            // EZT CSERÉLD KI / ADD HOZZÁ:
             createFilterButtons(uniqueFormats, masonryWrapper);
 
             if (typeof initChocolat === 'function') {
@@ -245,41 +245,37 @@ const prefix = window.subPagePrefix || "";
     });
   };
 
-  // ÚJ SEGÉDFÜGGVÉNY: Legyártja a gombokat és összeköti az Isotope-pal
   var createFilterButtons = function(formatsSet, wrapperElement) {
     var filterContainer = document.getElementById("dynamic-portfolio-filters");
     if (!filterContainer) return;
 
-    // Kezdő "All" gomb létrehozása
     var buttonsHTML = `<a href="#" class="filter-button is-checked mx-2" data-filter="*">All</a>`;
 
-    // Dinamikus gombok hozzáadása a beolvasott formátumok alapján
     formatsSet.forEach(function(format) {
       var formatClass = format.toLowerCase().replace(/[^a-z0-9]/g, "-");
       buttonsHTML += `<a href="#" class="filter-button mx-2" data-filter=".${formatClass}">${format}</a>`;
     });
 
-    // Befecskendezzük a gombokat a HTML-be
     filterContainer.innerHTML = `<div class="button-group text-center mb-5">${buttonsHTML}</div>`;
 
-    // Inicializáljuk az Isotope-ot a frissen betöltött elemekre
+    // Isotope inicializálása a megfelelő jQuery hivatkozással
     var $grid = $(wrapperElement).isotope({
       itemSelector: '.portfolio-item',
       layoutMode: 'fitRows'
     });
 
-    // Újrarendezés képek betöltődése után (megelőzi az egymásra csúszást)
+    // Rács igazítása a képek betöltése után
     $grid.imagesLoaded?.(function() {
       $grid.isotope('layout');
     });
 
-    // Isotope szűrés eseménykezelése
-    $(filterContainer).on('click', 'a', function(e) {
+    // Kattintás kezelő rákötése
+    $(filterContainer).on('click', '.filter-button', function(e) {
       e.preventDefault();
       var filterValue = $(this).attr('data-filter');
+      
       $grid.isotope({ filter: filterValue });
 
-      // Aktív osztály (is-checked) cseréje a gombokon
       $(filterContainer).find('.is-checked').removeClass('is-checked');
       $(this).addClass('is-checked');
     });
@@ -408,7 +404,7 @@ const prefix = window.subPagePrefix || "";
 
     initTextFx();
     initChocolat();
-    initIsotope();
+    //initIsotope();
 
     // mobile menu (delegated so it works for dynamically loaded nav)
     $(document).on('click', '.menu-btn', function(e){
