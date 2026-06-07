@@ -478,7 +478,7 @@ li.fillingText {
 
 @media (max-width: 767.98px) {
   .name {
-    font-size: 45px !important; /* Kényszerített kis méret mobilon */
+    font-size: 45px; /* Kényszerített kis méret mobilon */
     line-height: 1.0 !important;
     display: block !important;
     -webkit-text-size-adjust: none !important;
