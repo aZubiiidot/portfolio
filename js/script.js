@@ -155,19 +155,15 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
-// JAVÍTÁS (PORTFÓLIÓ OLDAL): Cím FENT, formátum LENT + FIX 3 OSZLOP minden nézetben + DINAMIKUS FILTEREK
+  // JAVÍTÁS (PORTFÓLIÓ OLDAL): Cím FENT, formátum LENT + FIX 3 OSZLOP minden nézetben
   var loadMasonryPortfolio = function(masonryWrapper) {
     var basePath = prefix + "portfolio/pages/";
     var loadedCount = 0;
     var orderedCards = new Array(projectFiles.length);
-    
-    // Ebben a halmazban gyűjtjük össze a formátumokat a gombokhoz (duplikáció nélkül)
-    var uniqueFormats = new Set(); 
 
-    // KÉNYSZERÍTÉS: Átírjuk a szülő konténert a Bootstrap rácsrendszerére
-    // Fontos: az Isotope miatt hozzáadjuk a 'grid' osztályt is!
+    // KÉNYSZERÍTÉS: Átírjuk a szülő konténert, hogy mobilon és PC-n is fixen 3 oszlopos legyen (Bootstrap row-cols-3)
     if (masonryWrapper) {
-      masonryWrapper.className = "grid row row-cols-2 row-cols-lg-3 g-4 gy-4";
+      masonryWrapper.className = "row row-cols-2 row-cols-lg-3 g-4 gy-4";
     }
 
     projectFiles.forEach(function(fileName, index) {
@@ -187,18 +183,9 @@ const prefix = window.subPagePrefix || "";
           
           var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
 
-          // Elmentjük a formátumot a szűrőhöz
-          if (format) {
-            uniqueFormats.add(format.trim());
-          }
-
-          // CSS osztály-barát nevet készítünk a formátumból (pl. "TV Series" -> "tv-series")
-          var formatClass = format.toLowerCase().replace(/[^a-z0-9]/g, "-");
-
-          // HTML ÚJRASTRUKTURÁLÁSA: Hozzáadtuk a 'portfolio-item' és a dinamikus 'formatClass' osztályokat az Isotope-nak
+          // HTML ÚJRASTRUKTURÁLÁSA: Masonry kártyákra is pontosan ráültetve a logó szisztéma
           var itemHTML = `
-            <div class="col portfolio-item ${formatClass}" style="padding: 12px;"> 
-                <div class="portfolio-card" style="margin-bottom: 15px;">
+            <div class="col" style="padding: 12px;"> <div class="portfolio-card" style="margin-bottom: 15px;">
                   <div class="title mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: left; font-weight: 500; font-size: 0.95rem;">
                     ${title}
                   </div>
@@ -215,15 +202,13 @@ const prefix = window.subPagePrefix || "";
             `;
 
           orderedCards[index] = itemHTML;
+          
           loadedCount++;
           
           if (loadedCount === projectFiles.length) {
             orderedCards.reverse().forEach(function(html) {
               if (html) masonryWrapper.insertAdjacentHTML("beforeend", html);
             });
-
-            // EZT CSERÉLD KI / ADD HOZZÁ:
-            createFilterButtons(uniqueFormats, masonryWrapper);
 
             if (typeof initChocolat === 'function') {
               initChocolat();
@@ -243,43 +228,7 @@ const prefix = window.subPagePrefix || "";
           }
         });
     });
-  };
-
-  var createFilterButtons = function(formatsSet, wrapperElement) {
-    var filterContainer = document.getElementById("dynamic-portfolio-filters");
-    if (!filterContainer) return;
-
-    var buttonsHTML = `<a href="#" class="filter-button is-checked mx-2" data-filter="*">All</a>`;
-
-    formatsSet.forEach(function(format) {
-      var formatClass = format.toLowerCase().replace(/[^a-z0-9]/g, "-");
-      buttonsHTML += `<a href="#" class="filter-button mx-2" data-filter=".${formatClass}">${format}</a>`;
-    });
-
-    filterContainer.innerHTML = `<div class="button-group text-center mb-5">${buttonsHTML}</div>`;
-
-    // Isotope inicializálása a megfelelő jQuery hivatkozással
-    var $grid = $(wrapperElement).isotope({
-      itemSelector: '.portfolio-item',
-      layoutMode: 'fitRows'
-    });
-
-    // Rács igazítása a képek betöltése után
-    $grid.imagesLoaded?.(function() {
-      $grid.isotope('layout');
-    });
-
-    // Kattintás kezelő rákötése
-    $(filterContainer).on('click', '.filter-button', function(e) {
-      e.preventDefault();
-      var filterValue = $(this).attr('data-filter');
-      
-      $grid.isotope({ filter: filterValue });
-
-      $(filterContainer).find('.is-checked').removeClass('is-checked');
-      $(this).addClass('is-checked');
-    });
-  };
+  }
 
   // A te pontos Swiper beállításaid külön funkcióba téve
   var initPortfolioSwiper = function() {
@@ -404,7 +353,7 @@ const prefix = window.subPagePrefix || "";
 
     initTextFx();
     initChocolat();
-    //initIsotope();
+    initIsotope();
 
     // mobile menu (delegated so it works for dynamically loaded nav)
     $(document).on('click', '.menu-btn', function(e){
@@ -421,7 +370,7 @@ const prefix = window.subPagePrefix || "";
 	$(window).load(function() {
 		// $("#overlayer").fadeOut("slow");
 		$('body').addClass('loaded');
-    //initIsotope();
+    initIsotope();
 	});
 
 })(jQuery);
