@@ -988,6 +988,52 @@ body.nav-active .nav__list-item:nth-child(10) {
   width: 95%;
 }
 
+/* A teljes blokk távolságtartása */
+.skills-container {
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+/* Kategória címek (Software, Languages...) */
+.skills-category-title {
+  font-family: 'Oswald', sans-serif; /* Hogy passzoljon az új dizájnhoz */
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color, #ffffff);
+  margin-bottom: 25px;
+  margin-top: 30px;
+}
+
+/* A rács, ami automatikusan kiszámolja az oszlopokat */
+.skills-grid {
+  display: grid;
+  /* 3 oszlopos elrendezés, ami mobilon magától igazodik */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px 40px; /* Függőleges és vízszintes távolság az elemek között */
+  margin-bottom: 40px;
+}
+
+/* Egy darab szoftver sor stílusa */
+.skill-item {
+  display: flex;
+  align-items: center; /* Függőlegesen középre zárja az ikont és a szöveget */
+  gap: 15px;           /* Távolság az ikon és a szoftver neve között */
+}
+
+/* Az ikonok egységes méretezése */
+.skill-icon {
+  width: 32px;        /* Pontosan akkora, ami szép és részletgazdag marad */
+  height: 32px;
+  object-fit: contain; /* Biztosítja, hogy az ikonok ne torzuljanak el */
+}
+
+/* A szoftver neve */
+.skill-name {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #e0e0e0;      /* Elegáns, majdnem fehér szín */
+}
 
 /* slide in */
 .slide-in .swiper-slide span,
