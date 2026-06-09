@@ -461,12 +461,6 @@ li.fillingText {
     width: 100%;
     max-width: 1250px; /* Itt megáll a széthúzás! Ezt ízlés szerint állíthatod 1100px - 1400px között */
   }
-
-  .personal-info {
-    /* Dinamikus kalkuláció: követi a középső sáv bal szélét, pont 40px távolságban */
-    left: calc(100% + 37.5vw - 625px - 40px) !important;
-    right: auto !important;
-  }
 }
 
 /* Responsive adjustments */
@@ -502,21 +496,6 @@ li.fillingText {
 
   .cta-button {
     padding: 40px 30px;
-  }
-
-  .personal-info {
-    position: absolute;
-    transform: rotate(-90deg);
-    transform-origin: left bottom; /* Pontos forgatási pont */
-    width: 600px;
-    bottom: 120px; /* Magasság finomhangolása a képernyő aljától */
-    gap: 30px;
-    display: flex !important;
-    align-items: center;
-    
-    /* Alapértelmezett igazítás laptopokon (992px és 1399px között) */
-    left: calc(100% + 20px); 
-    right: auto;
   }
 }
 
