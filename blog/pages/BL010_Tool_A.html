@@ -8,19 +8,32 @@
 	<link rel="stylesheet" type="text/css" href="../../style.css">
 
 	<meta name="blog-title" content="MAIN TITLE">
-	<meta name="blog-image" content="images/post-image1.jpg">
+	<meta name="blog-image" content="../../images/post-image1.jpg">
 	<meta name="blog-category" content="CATEGORY">
 	<meta name="blog-date" content="DD-MM-YYYY">
 	<meta name="blog-description" content="Rövid bevezető szöveg arról, hogy miként spórolhatunk meg értékes órákat okos scripteléssel...">
-  <script>
-    fetch('../../head.html')
-      .then(r => r.text())
-      .then(html => {
-        // Minden 'href="css/' vagy 'href="js/' kezdetű utat kiegészítünk a megfelelő prefixszel
-        let fixedHtml = html.replace(/href="(css|js|images|fonts)\//g, 'href="../../$1/');
-        document.head.insertAdjacentHTML('beforeend', fixedHtml);
-      });
-  </script>
+	<script>
+		fetch('../../head.html')
+		.then(r => r.text())
+		.then(html => {
+			// Minden 'href="css/' vagy 'href="js/' kezdetű utat kiegészítünk a megfelelő prefixszel
+			let fixedHtml = html.replace(/href="(css|js|images|fonts)\//g, 'href="../../$1/');
+			document.head.insertAdjacentHTML('beforeend', fixedHtml);
+		});
+		document.addEventListener("DOMContentLoaded", () => {
+				// 1. Meta adatok megkeresése és kiolvasása
+				const blogTitle = document.querySelector('meta[name="blog-title"]')?.getAttribute('content');
+				const blogDate = document.querySelector('meta[name="blog-date"]')?.getAttribute('content');
+				const blogCategory = document.querySelector('meta[name="blog-category"]')?.getAttribute('content');
+				const blogImage = document.querySelector('meta[name="blog-image"]')?.getAttribute('content');
+
+				// 2. Értékek beírása a HTML-be, ha léteznek a helyőrzők
+				if (blogTitle) document.getElementById('dynamic-title').textContent = blogTitle;
+				if (blogDate) document.getElementById('dynamic-date').textContent = blogDate;
+				if (blogCategory) document.getElementById('dynamic-category').textContent = blogCategory;
+				if (blogImage) document.getElementById('dynamic-image').src = blogImage;
+			});
+    </script>
 	<title>JP Istvan - DESCRIPTION</title>
 </head>
 
@@ -37,22 +50,21 @@
 					<section class="pt-5 mt-5" data-aos="fade-up">
 						<div class="post-meta d-flex gap-3 my-4">
 							<span class="post-category">
-								<svg width="16" height="16" viewBox="0 0 24 24">
-									<use xlink:href="#folder"></use>
-								</svg>
-								Business </span>
+								<!-- Az SVG-k maradtak, lentebb elmagyarázom mik ezek -->
+								<svg width="16" height="16" viewBox="0 0 24 24"><use xlink:href="#folder"></use></svg>
+								<span id="dynamic-category">CATEGORY</span> 
+							</span>
 							<span class="meta-day">
-								<svg width="16" height="16" viewBox="0 0 24 24">
-									<use xlink:href="#clock"></use>
-								</svg>12-03-2021 </span>
+								<svg width="16" height="16" viewBox="0 0 24 24"><use xlink:href="#clock"></use></svg>
+								<span id="dynamic-date">DD-MM-YYYY</span>
+							</span>
 						</div>
-						<h1 class="name mb-4 txt-fx slide-up text-uppercase">Best rules to follow for achieving
-							business goals</h1>
-						<img src="images/single-post-image.jpg" alt="single post" class="img-fluid my-4">
+						<h1 id="dynamic-title" class="name mb-4 txt-fx slide-up text-uppercase">MAIN TITLE OF THE PAGE</h1>
+						<img id="dynamic-image" src="../../images/single-post-image.jpg" alt="single post" class="img-fluid my-4">
 					</section>
 
-					<article class="post-item" data-aos="fade-up" data-aos-delay="100">
 
+					<article class="post-item" data-aos="fade-up" data-aos-delay="100">
 						<div class="post-content py-5">
 							<div class="post-description">
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
@@ -76,7 +88,7 @@
 									tellus sit ornare. Purus ut quis sed venenatis eget ut ipsum, enim lacus.
 									Praesent imperdiet vitae eu, eu tincidunt nunc integer sit.</p>
 								<figure class="d-flex float-end m-md-5">
-									<img src="images/team-member-7.jpg" width="300" alt="post-image"
+									<img src="../../images/team-member-7.jpg" width="300" alt="post-image"
 										class="img-fluid mb-4">
 								</figure>
 								<blockquote>“Sit suscipit tortor turpis sed fringilla lectus facilisis amet.
@@ -130,313 +142,9 @@
 									integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
 									consequat
 									libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-
-								<div class="post-bottom-link d-flex flex-wrap justify-content-between">
-									<div class="block-tag">
-										<ul class="list-unstyled d-flex flex-wrap gap-2">
-											<li>
-												<a href="#" class="btn btn-light">Denim</a>
-											</li>
-											<li>
-												<a href="#" class="btn btn-light">Trending</a>
-											</li>
-											<li>
-												<a href="#" class="btn btn-light">Clothing</a>
-											</li>
-										</ul>
-									</div>
-									<div class="block-social-links d-flex flex-wrap align-items-baseline">
-										<div class="element-title text-uppercase">Share:</div>
-										<ul class="list-unstyled d-flex gap-2">
-											<li>
-												<a href="#" class="btn btn-light">Facebook</a>
-											</li>
-											<li>
-												<a href="#" class="btn btn-light">Twitter</a>
-											</li>
-											<li>
-												<a href="#" class="btn btn-light">Pinterest</a>
-											</li>
-											<li>
-												<a href="#" class="btn btn-light">Youtube</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div id="single-post-navigation" class="mt-5">
-								<div class="post-navigation d-flex justify-content-between">
-									<a itemprop="url" class="post-prev text-decoration-none" href="#">
-										<span class="text-muted">Previous</span>
-										<h2 class="page-nav-title">Top 10 fashion trend for summer</h2>
-									</a>
-									<a itemprop="url" class="post-next text-end text-decoration-none" href="#">
-										<span class="text-muted">Next</span>
-										<h2 class="page-nav-title">Crazy fashion with unique moment</h2>
-									</a>
-								</div>
 							</div>
 						</div>
 					</article>
-
-					<div id="post-author-info" class="border-top border-bottom py-4">
-						<div class="row d-flex align-items-center">
-							<div class="col-lg-3">
-								<div class="image-holder">
-									<a itemprop="url" href="#">
-										<img src="images/author-image.jpg" class="img-fluid rounded-circle"
-											alt="author">
-									</a>
-								</div>
-							</div>
-							<div class="col-lg-9">
-								<div class="post-author-content">
-									<div class="element-title d-flex align-items-center gap-3">
-										<h4><a itemprop="url" href="#" class="text-decoration-none">Anna
-												Younes</a></h4>
-										<span class="author-position"><em>Fashion Designer</em></span>
-									</div>
-									<p>Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec,
-										rutrum a diam lacus, nunc integer etiam. Mattis pulvinar non viverra
-										donec
-										pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis
-										eget
-										leo, lectus. Tortor diam dignissim amet, in interdum aliquet. Magnis
-										dictum
-										et eros purus fermentum, massa ullamcorper sit sollicitudin.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<section id="post-comment" class="mt-5">
-						<div class="container">
-							<div class="row">
-								<div class="comments-wrap">
-									<h3 class="my-3">
-										<span class="count">3</span> Comments
-									</h3>
-									<div class="comment-list">
-										<article class="comment-item py-3 row border-bottom">
-											<div class="col-lg-2">
-												<img src="images/commentor-item1.jpg" alt="default"
-													class="commentor-image rounded-circle img-fluid">
-											</div>
-											<div class="col-lg-10">
-												<div class="author-post">
-													<div class="comment-meta d-flex gap-3">
-														<h5 class="author-name">Lufy carlson</h5>
-														<span class="meta-date">Jul 10</span>
-													</div>
-													<p>Tristique tempis condimentum diam done ullancomroer sit
-														element henddg sit he consequert.Tristique tempis
-														condimentum diam done ullancomroer sit element henddg
-														sit he
-														consequert.</p>
-													<div class="comments-reply">
-														<a href="#">Reply</a>
-													</div>
-												</div>
-												<article class="comment-item pb-3 row child-comments">
-													<div class="col-lg-2">
-														<img src="images/commentor-item2.jpg" alt="default"
-															class="commentor-image rounded-circle img-fluid">
-													</div>
-													<div class="col-lg-10">
-														<div class="author-post">
-															<div class="comment-meta d-flex gap-3">
-																<h5 class="author-name">Lora leigh</h5>
-																<span class="meta-date">Jul 10</span>
-															</div>
-															<p>Tristique tempis condimentum diam done
-																ullancomroer
-																sit element henddg sit he consequert.Tristique
-																tempis condimentum diam done ullancomroer sit
-																element henddg sit he consequert.</p>
-															<div class="comments-reply">
-																<a href="#">Reply</a>
-															</div>
-														</div>
-													</div>
-												</article>
-												<article class="comment-item pb-3 row child-comments">
-													<div class="col-lg-2">
-														<img src="images/commentor-item3.jpg" alt="default"
-															class="commentor-image rounded-circle img-fluid">
-													</div>
-													<div class="col-lg-10">
-														<div class="author-post">
-															<div class="comment-meta d-flex gap-3">
-																<h5 class="author-name">Natalie dormer</h5>
-																<span class="meta-date">Jul 10</span>
-															</div>
-															<p>Tristique tempis condimentum diam done
-																ullancomroer
-																sit element henddg sit he consequert.Tristique
-																tempis condimentum diam done ullancomroer sit
-																element henddg sit he consequert.</p>
-															<div class="comments-reply">
-																<a href="#">Reply</a>
-															</div>
-														</div>
-													</div>
-												</article>
-											</div>
-										</article>
-										<article class="comment-item py-3 row border-bottom">
-											<div class="col-lg-2">
-												<img src="images/commentor-item2.jpg" alt="default"
-													class="commentor-image rounded-circle img-fluid">
-											</div>
-											<div class="col-lg-10">
-												<div class="author-post">
-													<div class="comment-meta d-flex gap-3">
-														<h5 class="author-name">Lora leigh</h5>
-														<span class="meta-date">Jul 10</span>
-													</div>
-													<p>Tristique tempis condimentum diam done ullancomroer sit
-														element henddg sit he consequert.Tristique tempis
-														condimentum diam done ullancomroer sit element henddg
-														sit he
-														consequert.</p>
-													<div class="comments-reply">
-														<a href="#">Reply</a>
-													</div>
-												</div>
-											</div>
-										</article>
-										<article class="comment-item py-3 row">
-											<div class="col-lg-2">
-												<img src="images/commentor-item3.jpg" alt="default"
-													class="commentor-image rounded-circle img-fluid">
-											</div>
-											<div class="col-lg-10">
-												<div class="author-post">
-													<div class="comment-meta d-flex gap-3">
-														<h5 class="author-name">Natalie dormer</h5>
-														<span class="meta-date">Jul 10</span>
-													</div>
-													<p>Tristique tempis condimentum diam done ullancomroer sit
-														element henddg sit he consequert.Tristique tempis
-														condimentum diam done ullancomroer sit element henddg
-														sit he
-														consequert.</p>
-													<div class="comments-reply">
-														<a href="#">Reply</a>
-													</div>
-												</div>
-											</div>
-										</article>
-									</div>
-								</div>
-								<div class="comment-respond mt-5">
-									<h3>Leave a Comment</h3>
-									<p>Your email address will not be published. Required fields are marked *
-									</p>
-									<form method="post" class="form-group padding-small">
-										<div class="row">
-											<div class="col-lg-12 mb-3">
-												<textarea class="form-control ps-3 pt-3" id="comment"
-													name="comment"
-													placeholder="Write your comment here *"></textarea>
-											</div>
-											<div class="col-lg-6 mb-3">
-												<input class="form-control ps-3" type="text" name="author"
-													id="author" placeholder="Write your full name here *">
-											</div>
-											<div class="col-lg-6">
-												<input class="form-control ps-3" type="email" name="email"
-													id="email" placeholder="Write your e-mail address *">
-											</div>
-											<div class="col-lg-12">
-												<label class="d-flex align-items-center">
-													<input type="checkbox" class="checked-box me-2">
-													<span class="label-body">Save my name, email, and website in
-														this browser for the next time.</span>
-												</label>
-											</div>
-											<div class="col-lg-12 mt-3">
-												<button
-													class="btn btn-lg btn-primary text-uppercase btn-rounded-none w-100"
-													type="submit">Post Comment</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</section>
-
-					<div class="section-header mt-5">
-						<h2 class="section-title">Related Posts</h2>
-					</div><!--section-header-->
-
-					<div class="row">
-						<div class="col-lg-6">
-							<article class="post-item pb-5">
-								<div class="post-meta d-flex gap-3 my-4">
-									<span class="post-category">
-										<svg width="16" height="16" viewBox="0 0 24 24">
-											<use xlink:href="#folder"></use>
-										</svg>
-										Business </span>
-									<span class="meta-day">
-										<svg width="16" height="16" viewBox="0 0 24 24">
-											<use xlink:href="#clock"></use>
-										</svg>12-03-2021 </span>
-								</div>
-								<div class="post-image">
-									<img src="images/post-image1.jpg" alt="image"
-										class="post-grid-image img-fluid">
-								</div>
-								<div class="post-content">
-									<h3 class="post-title my-4">
-										<a href="single-post.html" class="text-decoration-none">Best rules to
-											follow for achieving business
-											goals</a>
-									</h3>
-									<p>Business migration into the cloud has been one of the most boggling
-										innovations of the last
-										decade. Cloud computing has revolutionized the world of information
-										technology.</p>
-								</div>
-								<a href="single-post.html" class="text-decoration-underline">Read More</a>
-							</article>
-						</div>
-						<div class="col-lg-6">
-							<article class="post-item pb-5">
-								<div class="post-meta d-flex gap-3 my-4">
-									<span class="post-category">
-										<svg width="16" height="16" viewBox="0 0 24 24">
-											<use xlink:href="#folder"></use>
-										</svg>
-										Business </span>
-									<span class="meta-day">
-										<svg width="16" height="16" viewBox="0 0 24 24">
-											<use xlink:href="#clock"></use>
-										</svg>12-03-2021 </span>
-								</div>
-								<div class="post-image">
-									<img src="images/post-image2.jpg" alt="image"
-										class="post-grid-image img-fluid">
-								</div>
-								<div class="post-content">
-									<h3 class="post-title my-4">
-										<a href="single-post.html" class="text-decoration-none">6 Ways to
-											Improve Your Emotional Health And
-											Maintain A Balanced
-											Life</a>
-									</h3>
-									<p>Business migration into the cloud has been one of the most boggling
-										innovations of the last
-										decade. Cloud computing has revolutionized the world of information
-										technology.</p>
-								</div>
-								<a href="single-post.html" class="text-decoration-underline">Read More</a>
-							</article>
-						</div>
-					</div>
-
 				</div>
 			</div>
 		</div>
