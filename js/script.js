@@ -40,7 +40,15 @@ const prefix = window.subPagePrefix || "";
 
   var blogPages = [
     "BL010_Tool_A.html",
-    "BL020_Tool_B.html"
+    "BL020_Tool_B.html",
+    "BL030_Tool.html",
+    "BL040_Tool.html",
+    "BL050_Tool.html",
+    "BL060_Tool.html",
+    "BL070_Tool.html",
+    "BL080_Tool.html",
+    "BL090_Tool.html"
+
   ];
 
   // Initialize main banners and slider modules
