@@ -240,7 +240,7 @@ const prefix = window.subPagePrefix || "";
       breakpoints: {
         300: { slidesPerView: 2 },
         768: { slidesPerView: 2, spaceBetween: 20 },
-        1200: { slidesPerView: 3, spaceBetween: 30 }
+        992: { slidesPerView: 3, spaceBetween: 30 }
       }
     });
   }
