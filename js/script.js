@@ -235,6 +235,7 @@ const prefix = window.subPagePrefix || "";
         el: ".swiper-pagination",
         clickable: true,
         dynamicBullets: false,
+        dynamicMainBullets: 1,
       },
       breakpoints: {
         300: { slidesPerView: 3 },
