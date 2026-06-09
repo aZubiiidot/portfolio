@@ -1123,6 +1123,12 @@ body.nav-active .nav__list-item:nth-child(10) {
   opacity: 1 !important;
 }
 
+#masonry-portfolio-wrapper {
+  max-width: 730px !important; /* Ha a szöveged 740px széles, írd át 740px-re */
+  margin-left: 0 !important;   /* Biztosítja, hogy a szöveg bal széléhez igazodjon */
+  margin-right: auto !important;
+}
+
 .portfolio-Swiper {
   width: 100%;
   max-width: 740px;
