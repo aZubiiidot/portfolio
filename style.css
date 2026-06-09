@@ -1618,3 +1618,9 @@ body.nav-active .nav__list-item:nth-child(10) {
   background-color: rgba(214, 48, 48, 0.03);
   transform: translateY(-2px); /* Minimális lebegés a mélységérzetért */
 }
+
+#blog-content-wrapper {
+  max-width: 740px !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}

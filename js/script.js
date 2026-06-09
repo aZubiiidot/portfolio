@@ -38,6 +38,11 @@ const prefix = window.subPagePrefix || "";
       "P300_Unannounced_Movie.html"
     ];
 
+  var blogPages = [
+    "BL010_Tool_A.html",
+    "BL020_Tool_B.html"
+  ];
+
   // Initialize main banners and slider modules
   var init_slider = function() {
     var nav_swiper = new Swiper(".swiper.banner-nav-slider", {
@@ -220,6 +225,86 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
+  var loadDynamicBlog = function(blogWrapper) {
+    var basePath = prefix + "blog/pages/";
+    var loadedCount = 0;
+    var orderedPosts = new Array(blogPages.length);
+
+    // Automatikus csökkenő sorrendbe rendezés a fájlnevek elején lévő sorszám alapján (030 elől, 010 hátul)
+    blogPages.sort(function(a, b) {
+      return parseInt(b) - parseInt(a);
+    });
+
+    blogPages.forEach(function(fileName, index) {
+      fetch(basePath + fileName)
+        .then(function(response) {
+          if (!response.ok) throw new Error("File not found: " + fileName);
+          return response.text();
+        })
+        .then(function(htmlString) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(htmlString, "text/html");
+
+          var title = doc.querySelector('meta[name="blog-title"]')?.getAttribute("content") || fileName.replace(".html", "");
+          var image = doc.querySelector('meta[name="blog-image"]')?.getAttribute("content") || "images/post-image1.jpg";
+          var category = doc.querySelector('meta[name="blog-category"]')?.getAttribute("content") || "Uncategorized";
+          var date = doc.querySelector('meta[name="blog-date"]')?.getAttribute("content") || "DD-MM-YYYY";
+          var description = doc.querySelector('meta[name="blog-description"]')?.getAttribute("content") || "";
+
+          var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
+
+          var postHTML = `
+            <div class="col-lg-6">
+              <article class="post-item pb-5" data-aos="fade-up">
+                <div class="post-meta d-flex gap-3 my-4">
+                  <span class="post-category">
+                    <i class="fa-regular fa-folder me-1"></i> ${category}
+                  </span>
+                  <span class="meta-day">
+                    <i class="fa-regular fa-clock me-1"></i> ${date}
+                  </span>
+                </div>
+                <div class="post-image overflow-hidden" style="position: relative;">
+                  <a href="${basePath}${fileName}">
+                    <img src="${finalImage}" alt="${title}" class="post-grid-image img-fluid" style="transition: transform 0.5s ease; display: block; width: 100%;">
+                  </a>
+                </div>
+                <div class="post-content">
+                  <h3 class="post-title my-4">
+                    <a href="${basePath}${fileName}" class="text-decoration-none">${title}</a>
+                  </h3>
+                  <p class="fillingText">${description}</p>
+                </div>
+                <a href="${basePath}${fileName}" class="text-decoration-underline">Read More</a>
+              </article>
+            </div>
+          `;
+
+          orderedPosts[index] = postHTML;
+          loadedCount++;
+
+          if (loadedCount === blogPages.length) {
+            orderedPosts.forEach(function(html) {
+              if (html) blogWrapper.insertAdjacentHTML("beforeend", html);
+            });
+
+            if (typeof AOS !== 'undefined') {
+              AOS.refresh();
+            }
+          }
+        })
+        .catch(function(err) {
+          console.error("Error loading blog post:", err);
+          loadedCount++;
+          if (loadedCount === blogPages.length) {
+            orderedPosts.forEach(function(html) {
+              if (html) blogWrapper.insertAdjacentHTML("beforeend", html);
+            });
+          }
+        });
+    });
+  }
+
   // Initialize the main portfolio Swiper instance with DOM mutation tracking
   var initPortfolioSwiper = function() {
     new Swiper(".portfolio-Swiper", {
@@ -316,6 +401,10 @@ const prefix = window.subPagePrefix || "";
       var masonryWrapper = document.getElementById("masonry-portfolio-wrapper");
       if (masonryWrapper) {
         loadMasonryPortfolio(masonryWrapper);
+      }
+      var blogWrapper = document.getElementById("dynamic-blog-wrapper");
+      if (blogWrapper) {
+        loadDynamicBlog(blogWrapper);
       }
     }).catch(function(err){ 
       console.error('Fetch load failed, fallback slider init', err);
