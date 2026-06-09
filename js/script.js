@@ -255,7 +255,7 @@ const prefix = window.subPagePrefix || "";
 
           var postHTML = `
             <div class="col-lg-6">
-              <article class="post-item pb-5" data-aos="fade-up">
+              <article class="post-item pb-5">
                 <div class="post-meta d-flex gap-3 my-4">
                   <span class="post-category">
                     <i class="fa-regular fa-folder me-1"></i> ${category}
@@ -289,7 +289,7 @@ const prefix = window.subPagePrefix || "";
             });
 
             if (typeof AOS !== 'undefined') {
-              AOS.refresh();
+              AOS.init();
             }
           }
         })
