@@ -238,7 +238,7 @@ const prefix = window.subPagePrefix || "";
         dynamicMainBullets: 1,
       },
       breakpoints: {
-        300: { slidesPerView: 2 },
+        300: { slidesPerView: 3 },
         768: { slidesPerView: 3, spaceBetween: 20 },
         992: { slidesPerView: 3, spaceBetween: 30 }
       }
