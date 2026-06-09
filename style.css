@@ -231,6 +231,13 @@ body {
   color: var(--text-color);
 }
 
+#contact .container {
+  max-width: 730px !important; /* Pontosan akkora legyen, mint a galériád szélessége */
+  margin-left: 0 !important;   /* Ugyanúgy balra zárva induljon, mint a galéria */
+  margin-right: auto !important;
+  padding: 0 !important;       /* Eltávolítja a sallangokat a tökéletes igazodásért */
+}
+
 .contact-name {
   font-family: 'Six Caps', sans-serif;
   font-weight: 400;
