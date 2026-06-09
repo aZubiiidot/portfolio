@@ -404,6 +404,7 @@ const prefix = window.subPagePrefix || "";
       }
       var blogWrapper = document.getElementById("dynamic-blog-wrapper");
       if (blogWrapper) {
+        console.log("1. Megvan a blog konténer a HTML-ben, indítom a betöltést.");
         loadDynamicBlog(blogWrapper);
       }
     }).catch(function(err){ 
