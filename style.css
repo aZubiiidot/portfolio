@@ -1479,6 +1479,8 @@ body.nav-active .nav__list-item:nth-child(10) {
   right: -570px;
   gap: 30px;
   transform-origin: left;
+  left: calc(max(25vw - 90px, 62.5vw - 715px)) !important;
+  right: auto !important;
 }
 
 /* bg image slider
