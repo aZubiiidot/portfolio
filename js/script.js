@@ -313,6 +313,86 @@ const prefix = window.subPagePrefix || "";
     });
   }
 
+  var loadRecentBlog = function(wrapper) {
+    var basePath = prefix + "blog/pages/";
+    var loadedCount = 0;
+    var maxRecent = 3;
+    
+    // Csökkenő sorszám szerinti rendezés (pl. 030 legfelül)
+    var sortedPages = [...blogPages].sort(function(a, b) {
+      return parseInt(b) - parseInt(a);
+    });
+
+    // Csak az első 3 legfrissebb poszt kivágása
+    var recentPages = sortedPages.slice(0, maxRecent);
+    var orderedPosts = new Array(recentPages.length);
+
+    recentPages.forEach(function(fileName, index) {
+      fetch(basePath + fileName)
+        .then(function(response) {
+          if (!response.ok) throw new Error("File not found: " + fileName);
+          return response.text();
+        })
+        .then(function(htmlString) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(htmlString, "text/html");
+
+          var title = doc.querySelector('meta[name="blog-title"]')?.getAttribute("content") || fileName.replace(".html", "");
+          var image = doc.querySelector('meta[name="blog-image"]')?.getAttribute("content") || "images/post-image1.jpg";
+          var category = doc.querySelector('meta[name="blog-category"]')?.getAttribute("content") || "Uncategorized";
+          var date = doc.querySelector('meta[name="blog-date"]')?.getAttribute("content") || "DD-MM-YYYY";
+          var description = doc.querySelector('meta[name="blog-description"]')?.getAttribute("content") || "";
+
+          var finalImage = (image.indexOf('http') === 0) ? image : prefix + image;
+
+          var postHTML = `
+            <div class="recent-post-card row g-0 align-items-center mb-4 pb-4 border-bottom">
+              <!-- Bal oldal: Kis vágott négyzetes kép -->
+              <div class="col-4 col-sm-3 col-md-2 overflow-hidden" style="aspect-ratio: 1/1; border-radius: 0px;">
+                <a href="${basePath}${fileName}">
+                  <img src="${finalImage}" alt="${title}" class="img-fluid w-100 h-100" style="object-fit: cover; transition: transform 0.4s ease; display: block;">
+                </a>
+              </div>
+              <!-- Jobb oldal: Metaadatok és cím -->
+              <div class="col-8 col-sm-9 col-md-10 ps-3 ps-sm-4">
+                <div class="post-meta d-flex gap-2 gap-sm-3 mb-1" style="font-size: 0.8rem; color: var(--text-muted);">
+                  <span><i class="fa-regular fa-folder me-1"></i> ${category}</span>
+                  <span><i class="fa-regular fa-clock me-1"></i> ${date}</span>
+                </div>
+                <h4 class="mb-1" style="font-family: 'Oswald', sans-serif; font-size: 1.35rem; line-height: 1.2;">
+                  <a href="${basePath}${fileName}" class="text-decoration-none text-white hover-red-title">${title}</a>
+                </h4>
+                <p class="fillingText mb-0 d-none d-md-block" style="font-size: 0.9rem; line-height: 1.3;">
+                  ${description}
+                </p>
+              </div>
+            </div>
+          `;
+
+          orderedPosts[index] = postHTML;
+          loadedCount++;
+
+          if (loadedCount === recentPages.length) {
+            orderedPosts.forEach(function(html) {
+              if (html) wrapper.insertAdjacentHTML("beforeend", html);
+            });
+            if (typeof AOS !== 'undefined') {
+              AOS.init();
+            }
+          }
+        })
+        .catch(function(err) {
+          console.error("Error loading recent post:", err);
+          loadedCount++;
+          if (loadedCount === recentPages.length) {
+            orderedPosts.forEach(function(html) {
+              if (html) wrapper.insertAdjacentHTML("beforeend", html);
+            });
+          }
+        });
+    });
+  }
+
   // Initialize the main portfolio Swiper instance with DOM mutation tracking
   var initPortfolioSwiper = function() {
     new Swiper(".portfolio-Swiper", {
@@ -412,8 +492,12 @@ const prefix = window.subPagePrefix || "";
       }
       var blogWrapper = document.getElementById("dynamic-blog-wrapper");
       if (blogWrapper) {
-        console.log("1. Megvan a blog konténer a HTML-ben, indítom a betöltést.");
+        /*console.log("1. Megvan a blog konténer a HTML-ben, indítom a betöltést.");*/
         loadDynamicBlog(blogWrapper);
+      }
+      var recentBlogWrapper = document.getElementById("recent-blog-wrapper");
+      if (recentBlogWrapper) {
+        loadRecentBlog(recentBlogWrapper);
       }
     }).catch(function(err){ 
       console.error('Fetch load failed, fallback slider init', err);
