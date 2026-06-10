@@ -236,14 +236,19 @@ const prefix = window.subPagePrefix || "";
   var loadDynamicBlog = function(blogWrapper) {
     var basePath = prefix + "blog/pages/";
     var loadedCount = 0;
-    var orderedPosts = new Array(blogPages.length);
-
-    // Automatikus csökkenő sorrendbe rendezés a fájlnevek elején lévő sorszám alapján (030 elől, 010 hátul)
-    blogPages.sort(function(a, b) {
-      return parseInt(b) - parseInt(a);
+    
+    // Biztonságos másolat készítése és precíz szám-alapú csökkenő rendezés (Regex segítségével)
+    var sortedPages = [...blogPages].sort(function(a, b) {
+      var getNum = function(str) {
+        var match = str.match(/\d+/); // Kimásolja a számjegyeket (pl. "BL090"-ből "090"-et)
+        return match ? parseInt(match[0], 10) : 0;
+      };
+      return getNum(b) - getNum(a);
     });
 
-    blogPages.forEach(function(fileName, index) {
+    var orderedPosts = new Array(sortedPages.length);
+
+    sortedPages.forEach(function(fileName, index) {
       fetch(basePath + fileName)
         .then(function(response) {
           if (!response.ok) throw new Error("File not found: " + fileName);
@@ -291,7 +296,7 @@ const prefix = window.subPagePrefix || "";
           orderedPosts[index] = postHTML;
           loadedCount++;
 
-          if (loadedCount === blogPages.length) {
+          if (loadedCount === sortedPages.length) {
             orderedPosts.forEach(function(html) {
               if (html) blogWrapper.insertAdjacentHTML("beforeend", html);
             });
@@ -304,7 +309,7 @@ const prefix = window.subPagePrefix || "";
         .catch(function(err) {
           console.error("Error loading blog post:", err);
           loadedCount++;
-          if (loadedCount === blogPages.length) {
+          if (loadedCount === sortedPages.length) {
             orderedPosts.forEach(function(html) {
               if (html) blogWrapper.insertAdjacentHTML("beforeend", html);
             });
@@ -318,9 +323,13 @@ const prefix = window.subPagePrefix || "";
     var loadedCount = 0;
     var maxRecent = 3;
     
-    // Csökkenő sorszám szerinti rendezés (pl. 030 legfelül)
+    // Biztonságos másolat készítése és precíz szám-alapú csökkenő rendezés (Regex segítségével)
     var sortedPages = [...blogPages].sort(function(a, b) {
-      return parseInt(b) - parseInt(a);
+      var getNum = function(str) {
+        var match = str.match(/\d+/); // Kimásolja a számjegyeket (pl. "BL090"-ből "090"-et)
+        return match ? parseInt(match[0], 10) : 0;
+      };
+      return getNum(b) - getNum(a);
     });
 
     // Csak az első 3 legfrissebb poszt kivágása
@@ -347,13 +356,11 @@ const prefix = window.subPagePrefix || "";
 
           var postHTML = `
             <div class="recent-post-card row g-0 align-items-center mb-4 pb-4 border-bottom">
-              <!-- Bal oldal: Kis vágott négyzetes kép -->
               <div class="col-4 col-sm-3 col-md-2 overflow-hidden" style="aspect-ratio: 1/1; border-radius: 0px;">
                 <a href="${basePath}${fileName}">
                   <img src="${finalImage}" alt="${title}" class="img-fluid w-100 h-100" style="object-fit: cover; transition: transform 0.4s ease; display: block;">
                 </a>
               </div>
-              <!-- Jobb oldal: Metaadatok és cím -->
               <div class="col-8 col-sm-9 col-md-10 ps-3 ps-sm-4">
                 <div class="post-meta d-flex gap-2 gap-sm-3 mb-1" style="font-size: 0.8rem; color: var(--text-muted);">
                   <span><i class="fa-regular fa-folder me-1"></i> ${category}</span>
