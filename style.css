@@ -1709,4 +1709,6 @@ body.nav-active .nav__list-item:nth-child(10) {
   height: 100%;
   object-fit: cover;
   object-position: top center;
+  transform: scale(0.8);
+  transform-origin: top center;
 }
