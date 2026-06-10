@@ -65,17 +65,16 @@
               <div class="fs-5" data-aos="fade-up" data-aos-delay="300">
                 <span class="introduction mb-4 d-block">PROJECT DESCRIPTION</span>
                 <ul class="list-unstyled mb-4 fs-6 w-100" style="max-width: 740px; word-wrap: break-word; overflow-wrap: break-word; text-align: justify;">
-                  <li><strong>Role:</strong> ROLE</li>
-                  <li><strong>Core Stack:</strong> CORE STACK</li>
-                  <li><strong>Main Focus:</strong> MAIN FOCUS</li>
+                  <li><strong>Role:</strong> Technical Artist / Pipeline TD</li>
+                  <li><strong>Core Stack:</strong> Houdini (Solaris/Karma), Unreal Engine, USD, Custom Data Parsing, Render Management & AOVs</li>
+                  <li><strong>Main Focus:</strong> Mass Environment Porting (UE to USD), Large-Scale Instancing Optimization, Set Dressing & Lookdev, Render Pipeline Optimization</li>
                 </ul>
                 <p class="fillingText">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur.
+                  This project involved delivering a high-end, nearly 2-minute game cinematic for a tactical shooter within a tight 3-4 month window.<br />
+                  The primary challenge was reconstructing a massive, highly detailed native Unreal Engine game level inside Houdini's Solaris context. 
+                  The source data was unorganized and production-heavy, consisting of 600-800 unique assets instanced between 45,000 and 60,000 times—complete with materials, 
+                  props, decals, and foliage. I successfully built and executed a custom data pipeline to port and optimize this environment under USD, managing over 95% of the final on-screen set. <br />
+                  Additionally, I supervised the technical layout adjustments, final lookdev approvals, specialized render layer optimization, and editorial review conform.
                 </p>
               </div>
             </div>
@@ -94,19 +93,38 @@
             <div class="col-lg-12" pb-5>
               <div class="fs-5" data-aos="fade-up" data-aos-delay="300"></div>
                 <span class="introduction mb-4 d-block">MY TASKS</span>
-                <p class="fillingText">
-                  lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur. 
-                  Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit
-                  lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur. 
-                  Donec suscipit auctor dui, sed efficitur. Donec
-                </p>
                 <ul class="fillingText">
                   <li class="fillingText">
-                    <strong style="color: inherit;">STRONG_SECTION:</strong>
-                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur. 
-                    Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit
-                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur. 
-                    Donec suscipit auctor dui, sed efficitur. Donec
+                    <strong style="color: inherit;">Unreal to USD Environment Porting Pipeline:</strong>
+                    Manually rebuilding the game map would have been impossible within the deadline.<br />
+                    I designed a semi-automated pipeline that parsed complex asset, material, and transform data out of Unreal Engine. 
+                    This data was then ingested into Solaris, automatically reconstructing the entire environment under USD. <br />
+                    By preserving and utilizing the original transform data, all 60,000+ assets automatically snapped to their correct instanced locations.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Large-Scale Scene Optimization and Instancing:</strong>
+                    To keep the extremely detailed environment renderable and lightweight, I engineered the ingest tool to maximize USD native instancing.<br />
+                    This drastically reduced the memory footprint on the render farm and viewport lag, making a massive scene highly manageable for layout and 
+                    lighting artists without sacrificing visual quality.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Hero Asset Lookdev and Set Dressing Variations:</strong>
+                    While 95% of the environment was automated, close-up "hero" shots required manual flexibility.<br />
+                    I structured the USD hierarchy to allow seamless overrides, enabling quick asset modifications, material tweaks, 
+                    and custom lookdev adjustments when requested by the director. I was also responsible for executing layout changes on 
+                    specific locations to better serve the cinematic's narrative and framing.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Advanced Render Layers:</strong>
+                    I managed the render pipeline and resource allocation, creating optimized render layers to prevent production bottlenecks.<br />
+                    Due to high artistic demands regarding glass reflections and refractive surfaces, I developed specialized technical AOV setups and custom utility passes 
+                    to give the compositing team total control over complex material layers.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Editorial Integration, Review Cuts:</strong>
+                    I managed the preparation and formatting of daily review playblasts and conform edits.<br />
+                    This ensured that editorial changes were instantly updated, correctly color-managed, and perfectly aligned with the director's pacing requirements 
+                    throughout the fast-paced production.
                   </li>
                 </ul>
               </div>
