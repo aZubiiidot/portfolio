@@ -59,13 +59,22 @@
             <div class="col-lg-12 pb-5">
               <div class="fs-5" data-aos="fade-up" data-aos-delay="300">
                 <span class="introduction mb-4 d-block">PROJECT DESCRIPTION</span>
+                <ul class="list-unstyled mb-4 fs-6 opacity-75 w-100" style="max-width: 740px; word-wrap: break-word; overflow-wrap: break-word; text-align: justify;">
+                  <li><strong>Role:</strong> Lead Technical Artist</li>
+                  <li><strong>Core Stack:</strong> Houdini (Solaris/Karma), USD, Unreal Engine, Python, JSON-based Resolver, HDA Development</li>
+                  <li><strong>Main Focus:</strong> Batch Asset Ingest, Multi-Source Optimization (Kitbash & Unreal), Render Management & Karma Tuning, Editorial Pipelines</li>
+                </ul>
                 <p class="fillingText">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed
-                  efficitur. Donec suscipit auctor dui, sed efficitur.
+                  This project involved the production of an 80-90 second game cinematic delivered under 
+                  a tight schedule of 2-3 months. <br /> 
+                  My primary responsibility was ensuring that both incoming client assets and newly modeled, purchased, or marketplace assets were 
+                  ingested as rapidly and efficiently as possible into Houdini's Solaris/Karma context.<br />
+                  In addition to managing the early-stage environment layout, I oversaw the technical 
+                  rendering pipeline, strict color management, custom AOV generation for compositing, and 
+                  automated editorial daily deliveries. <br />
+                  I also managed and monitored global render farm utilization 
+                  throughout the production, optimizing render efficiency and diagnosing/patching Karma-specific 
+                  bugs under heavy deadline pressure.
                 </p>
               </div>
             </div>
@@ -84,12 +93,44 @@
             <div class="col-lg-12" pb-5>
               <div class="fs-5" data-aos="fade-up" data-aos-delay="300"></div>
                 <span class="introduction mb-4 d-block">MY TASKS</span>
-                <p class="fillingText">
-                  lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur. 
-                  Donec suscipit auctor dui, sed efficitur. Donec suscipit auctor dui, sed efficitur. Donec suscipit
-                  lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur. 
-                  Donec suscipit auctor dui, sed efficitur. Donec
-                </p>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Automated Kitbash & Batch Ingest Pipeline:</strong>
+                    To handle massive Kitbash libraries, I engineered a custom batch-processing HDA.<br />
+                    The tool automatically parsed directories of raw OBJ and FBX files, ran them through our USD Asset Builder, 
+                    correctly assigned and mapped textures and shader settings on the fly, and restructured the final USD primitive hierarchy based on strict naming conventions.<br />
+                    This eliminated days of repetitive manual asset prep.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Unreal Engine Asset Integration:</strong>
+                    We incorporated numerous marketplace assets that only existed in native Unreal Engine .uasset formats.<br />
+                    I developed a dedicated toolset to extract these assets correctly, standardizing the incoming data and pipeline inputs to seamlessly ingest and reconstruct 
+                    the models and materials directly inside Solaris for Karma rendering.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">USD Asset Builder Optimization & Path Resolving:</strong>
+                    I maintained, refined, and expanded our studio's existing Solaris Asset Builder toolset to support the heavy ingest requirements.<br />
+                    Because the project relied on a custom JSON-based asset/shot resolver, I designed all file-handling and caching nodes to strictly adhere to 
+                    these relative environment paths, ensuring seamless data portability across the entire pipeline.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Asset Gallery HDA:</strong>
+                    With hundreds of assets available, artists faced a challenge in visual tracking. To solve this, I developed an interactive Asset Gallery HDA within Solaris.<br />
+                    The tool directly queried and filtered by custom tags the JSON resolver’s asset database, dynamically instancing and organizing the available USD files into a clean, 
+                    visual grid inside a single node.<br />
+                    This allowed layout artists to instantly see and select the exact kit pieces they needed for environment dressing.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Render Management, Optimization & Karma Debugging:</strong>
+                    I was fully responsible for overseeing the render workflow to guarantee that all frames were delivered on schedule.<br />
+                    This involved continuous render resource optimization and heavily profiling scenes to reduce memory usage. 
+                    When encountering renderer-specific bottlenecks, I actively reverse-engineered and resolved Karma bugs, ensuring production stability under an intense timeline.
+                  </li>
+                  <li class="fillingText">
+                    <strong style="color: inherit;">Render Layers & Editorial Delivery:</strong>
+                    I structured the final render layers and AOV breakdowns to match the exact requirements of the compositing team, providing custom utility passes whenever requested.<br />
+                    I also took charge of quality control and pipeline consistency, maintaining global color management (ACES) if something went wrong and automating the output formatting for daily 
+                    editorial deliveries and reviews.
+                  </li>
               </div>
             </div>
           </div>
