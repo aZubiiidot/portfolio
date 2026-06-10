@@ -39,8 +39,8 @@ const prefix = window.subPagePrefix || "";
     ];
 
   var blogPages = [
-    "BL010_Tool_A.html",
-    "BL020_Tool_B.html",
+    "BL010_Tool.html",
+    "BL020_Tool.html",
     "BL030_Tool.html",
     "BL040_Tool.html",
     "BL050_Tool.html",
