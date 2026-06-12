@@ -20,7 +20,7 @@ const prefix = window.subPagePrefix || "";
       "P120_Lost_Survivors.html",
       "P130_After_The_Fall.html",
       "P140_The_Valiant.html",
-      "P150_Pocats.html",
+      "P150_CNR.html",
       "P160_Frostpunk.html",
       "P170_The_Alters.html",
       "P180_BONES.html",
