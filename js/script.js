@@ -10,7 +10,7 @@ const prefix = window.subPagePrefix || "";
       "P020_Lexus.html",
       "P030_Warhammer_40000_Inquisitor_Martyr.html",
       "P040_Titan_Quest_Atlantis.html",
-      "P050_Iron_Throne.html",
+      "P050_Iron.html",
       "P060_Kingdoms_of_Amalur_Re_Reckoning.html",
       "P070_Bullets_TVS.html",
       "P080_SuperPower_3.html",
