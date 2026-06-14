@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+
+Disallow: /styleBackup.css
+Disallow: /readme.txt
+
+
+Sitemap: https://azubiii.me/sitemap.xml
