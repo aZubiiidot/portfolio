@@ -39,7 +39,7 @@ const prefix = window.subPagePrefix || "";
     ];
 
   var blogPages = [
-    "BL010_Tool.html"
+    "BL010_SPOM_Alpha.html"
   ];
 
   // Initialize main banners and slider modules
