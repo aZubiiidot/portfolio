@@ -85,7 +85,9 @@
 									If this maximum deviation exceeds the allowed half-tiling threshold, the Branch node outputs a value of 0, 
 									otherwise it outputs 1. Feeding this value directly into the Alpha input of the Fragment master node where the Alpha Clip 
 									Threshold is set to 0.5, it automatically discards any pixels where the value drops to 0.</p>
-								<img src="../../blog/pages/Sources/BL010_Graph.png" width="740" alt="post-image" class="img-fluid mb-4">
+								<a href="../../blog/pages/Sources/BL010_Graph.png" target="_blank">
+									<img src="../../blog/pages/Sources/BL010_Graph.png" width="740" alt="post-image" class="img-fluid mb-4">
+								</a>
 								<p class="fillingText">This mathematical approach is highly practical because it dynamically adapts to changes in Tiling. 
 									If Tiling is set to exactly one, the boundaries remain in the standard 0 to 1 range with a midpoint of 0.5, 
 									meaning any drift outside this range is immediately clipped from the surface. <br />
