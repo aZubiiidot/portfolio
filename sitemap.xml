@@ -14,6 +14,10 @@
     <loc>https://azubiii.me/portfolio/portfolio-masonry.html</loc>
     <lastmod>2026-06-14</lastmod>
   </url>
+  <url>
+    <loc>https://azubiii.me/blog/blog.html</loc>
+    <lastmod>2026-06-18</lastmod>
+  </url>
 
   <!-- PORTFÓLIÓ ALOLDALAK -->
   <url>
@@ -137,4 +141,9 @@
     <lastmod>2026-06-14</lastmod>
   </url>
 
+  <!-- BLOG ALOLDALAK -->
+  <url>
+    <loc>https://azubiii.me/blog/pages/BL010_SPOM_Alpha.html</loc>
+    <lastmod>2026-06-18</lastmod>
+  </url>
 </urlset>
