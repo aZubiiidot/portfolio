@@ -57,7 +57,7 @@
 							</span>
 						</div>
 						<h1 id="dynamic-title" class="name mb-4 txt-fx slide-up text-uppercase">MAIN TITLE OF THE PAGE</h1>
-						<img id="dynamic-image" src="../../images/single-post-image.jpg" alt="single post" class="img-fluid my-4">
+						<img id="dynamic-image" src="../../images/single-post-image.jpg" width="740" alt="single post" class="img-fluid my-4">
 					</section>
 
 
@@ -78,39 +78,29 @@
 									When reaching the edges of the texture, the shifted coordinates drift outside the designated [0,1] range 
 									causing ugly, stretched pixel streaks along the geometric boundaries. 
 									To resolve this, I implemented the mathematical logic shown at the bottom of my shader.</p>
-								<p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus
-									fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
-									adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
-									integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
-									consequat
-									libero dolor. Porta ut diam lobortis eget leo, lectus. Nunc tempus feugiat
-									massa
-									laoreet ultrices diam magna quam. Congue auctor auctor luctus neque. Enim
-									lorem
-									ultrices diam donec. Sed id placerat consectetur faucibus.</p>
-								<h4>Velit, praesent pharetra malesuada</h4>
-								<p>Id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget
-									lectus.
-									Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget
-									ullamcorper urna, elit ac diam tellus viverra lacus.</p>
-								<p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus
-									fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
-									adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
-									integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
-									consequat
-									libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-								<p>Velit, praesent pharetra malesuada id pulvinar amet. Consequat potenti mollis
-									massa iaculis et, dolor, eget lectus. Aliquam pellentesque molestie felis
-									fames
-									sed eget non euismod eget. Et eget ullamcorper urna, elit ac diam tellus
-									viverra
-									lacus.</p>
-								<p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus
-									fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
-									adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
-									integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
-									consequat
-									libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
+								<p class="fillingText">First, I divide the Tiling parameter by two, which marks the center of the sampling range as 
+									well as the maximum allowed deviation. I subtract this half-tiling value from the already shifted ParallaxUVs coordinates, 
+									then take the absolute value of the difference to determine the actual distance from the center. <br />
+									Next, I split the U and V axes and find which direction has the larger deviation. 
+									If this maximum deviation exceeds the allowed half-tiling threshold, the Branch node outputs a value of 0, 
+									otherwise it outputs 1. Feeding this value directly into the Alpha input of the Fragment master node where the Alpha Clip 
+									Threshold is set to 0.5, it automatically discards any pixels where the value drops to 0.</p>
+								<img src="../../blog/pages/Sources/BL010_Graph.png" width="740" alt="post-image" class="img-fluid mb-4">
+								<p class="fillingText">This mathematical approach is highly practical because it dynamically adapts to changes in Tiling. 
+									If Tiling is set to exactly one, the boundaries remain in the standard 0 to 1 range with a midpoint of 0.5, 
+									meaning any drift outside this range is immediately clipped from the surface. <br />
+									However, if I increase the Tiling value to 2 or more, the clipping boundaries automatically expand thanks to the division by two. 
+									The system still crops with great accuracy at the edges of the repeated texture tiles, entirely eliminating the need to manually adjust 
+									clipping thresholds.</p>
+								<h4>Optimization</h4>
+								<p class="fillingText">While the solution works visually, it is important to emphasize that this shader is currently just an unoptimized prototype 
+									created solely to verify the visual concept. The built-in POM node uses a fixed step count, 
+									which in practice should scale dynamically based on camera distance and view angle. 
+									Glancing angles require more steps for an accurate illusion, while looking at the surface perpendicularly requires almost no calculations. <br />
+									Furthermore, from a distance, the parallax effect is no longer noticeable but continues to drain GPU performance. For larger distances, 
+									introducing a proper LOD-based fallback or switching to basic normal/bump mapping would be highly beneficial, 
+									not to mention further refining the branching logic to prevent unnecessary calculations.</p>
+								<img src="../../blog/pages/Sources/BL010_View.png" width="740" alt="post-image" class="img-fluid mb-4">
 							</div>
 						</div>
 					</article>
