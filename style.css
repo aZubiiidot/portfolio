@@ -273,14 +273,14 @@ body {
 .description {
   font-weight: 400;
   /*font-size: 21px;*/
-  line-height: 1.5;
+  line-height: 1.3;
   color: var(--text-muted);
   max-width: 490px;
   text-align: justify;
 }
 
 .sideText {
-  line-height: 1.5; 
+  line-height: 1.3; 
   width: 100%;
   color: var(--text-muted);
   max-width: 300px;         /* Itt fixen meg fog állni a széthúzás */
