@@ -280,7 +280,7 @@ body {
 }
 
 .sideText {
-  line-height: 1.3; 
+  line-height: 1.1; 
   width: 100%;
   color: var(--text-muted);
   max-width: 300px;         /* Itt fixen meg fog állni a széthúzás */
