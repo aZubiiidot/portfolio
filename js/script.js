@@ -34,7 +34,7 @@ const prefix = window.subPagePrefix || "";
       "P260_Operation_Kabul.html",
       "P270_Delta_Force.html",
       "P280_War_Robots_Frontiers.html",
-      "P290_Unannounced_Game.html",
+      "P290_Star_Trek_Shadow_Frontier.html",
       "P300_Unannounced_Movie.html"
     ];
 
